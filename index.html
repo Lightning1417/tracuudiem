@@ -140,7 +140,7 @@
         <div class="result-row"><span class="result-label">Môn 3 (Ngoại ngữ):</span><span class="result-value" id="resM3">0.00</span></div>
         <div class="result-row"><span class="result-label">Điểm ĐGNL BCA:</span><span class="result-value text-bold" id="resBCA">0.00</span><span class="eagle-icon">  🦅</span>
 </div>
-        <div class="result-row"><span class="result-label">Điểm Cộng Gốc:</span><span class="result-value" id="resCong">0.00</span></div>
+        <div class="result-row"><span class="result-label">Điểm cộng gốc:</span><span class="result-value" id="resCong">0.00</span></div>
         <div class="result-row"><span class="result-label">Điểm IELTS:</span><span class="result-value" id="resIELTS">0.0</span></div>
         <div class="result-row"><span class="result-label">Cấp HSK:</span><span class="result-value" id="resHSK">0</span></div>
         
@@ -255,11 +255,11 @@ async function xuLyTraCuu() {
     var scorePT3 = pt3_thpt + pt3_bca + pt3_thuong;
     
     var diemCuoi = scorePT3;
-    var txtPT = "PT3 (Diem THPT goc cao hon)";
+    var txtPT = "PT3 (Điểm THPT cao hơn)";
 
     if (scorePT2 > scorePT3) {
         diemCuoi = scorePT2;
-        txtPT = "PT2 (Chung chi quoc te quy doi)";
+        txtPT = "PT2 (Chứng chỉ quốc tế)";
     }
 
     // Đổ dữ liệu ra giao diện hiển thị

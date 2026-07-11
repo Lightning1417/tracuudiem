@@ -41,10 +41,13 @@
     color: #0A192F;
 }
         .form-group input { 
-    width: 95%; 
-    padding: 8px; 
+    flex-grow: 1;              
+    padding: 10px;             /* Tăng nhẹ padding để ô nhập cân đối với chữ to */
     border: 1px solid #cbd5e1;
-    border-radius: 6px; /* Bo nhẹ góc ô nhập */
+    border-radius: 6px; 
+    box-sizing: border-box;    
+    font-size: 16px;           /* Tăng cỡ chữ bên trong ô nhập liệu */
+    font-family: Cambria, Georgia, serif; /* Đảm bảo ô nhập cũng ăn theo phông Cambria */
 }
         .btn-search { 
     width: 100%; 

@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tra Cứu Điểm ĐGNL 26</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 500px; margin: auto; border: 1px solid #ccc; padding: 20px; }
+        .section-box { margin-bottom: 15px; border: 1px solid #ddd; padding: 10px; }
+        .section-title { font-weight: bold; margin-bottom: 10px; }
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input { width: 95%; padding: 5px; }
+        .btn-search { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        .error-text { color: red; display: none; margin-top: 10px; }
+        #ketQuaBox { display: none; margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; }
+        .result-row { margin-bottom: 8px; }
+        .result-label { font-weight: bold; display: inline-block; width: 180px; }
+        .final-score-box { background-color: #f8f9fa; border: 1px dashed #6c757d; padding: 10px; margin-top: 15px; text-align: center; }
+        #ketQuaDiem { font-size: 20px; font-weight: bold; color: red; margin: 5px 0 0 0; }
+        #phuongThucToiUu { font-style: italic; color: green; margin-top: 5px; }
+    </style>
 </head>
 <body>
 
@@ -126,3 +143,26 @@ function xuLyTraCuu() {
     
     var diemCuoi = scorePT3;
     var txtPT = "PT3 (Diem THPT goc cao hon)";
+
+    if (scorePT2 > scorePT3) {
+        diemCuoi = scorePT2;
+        txtPT = "PT2 (Chung chi quoc te quy doi)";
+    }
+
+    document.getElementById("resName").innerText = tìmThấy.HOTEN;
+    document.getElementById("resSBD").innerText = tìmThấy.SBD;
+    document.getElementById("resM1").innerText = m1.toFixed(2);
+    document.getElementById("resM2").innerText = m2.toFixed(2);
+    document.getElementById("resM3").innerText = m3.toFixed(2);
+    document.getElementById("resBCA").innerText = bca.toFixed(2);
+    document.getElementById("resCong").innerText = cong.toFixed(2);
+    document.getElementById("resIELTS").innerText = ieltsVal.toFixed(1);
+    document.getElementById("resHSK").innerText = hskVal;
+
+    document.getElementById("phuongThucToiUu").innerText = txtPT;
+    document.getElementById("ketQuaDiem").innerText = diemCuoi.toFixed(2) + " điểm";
+    document.getElementById("ketQuaBox").style.display = "block";
+}
+</script>
+</body>
+</html>

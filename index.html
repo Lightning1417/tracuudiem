@@ -70,7 +70,9 @@
     font-family: Cambria, Georgia, serif; /* Đảm bảo ô nhập cũng ăn theo phông Cambria */
 }
       .btn-search { 
-    width: 80%; 
+    width: 80%;              /* Hoặc giữ nguyên độ rộng thu hẹp bạn đã đặt trước đó */
+    display: block;            /* BẮT BUỘC: Biến nút thành dạng khối để có thể áp dụng căn giữa */
+    margin: 15px auto;         /* BẮT BUỘC: Khoảng cách trên dưới là 15px, "auto" bên trái/phải sẽ tự động căn giữa nút */
     padding: 12px; 
     background-color: #0A192F; 
     color: white; 
@@ -78,8 +80,7 @@
     cursor: pointer; 
     border-radius: 8px; 
     font-weight: bold;
-    font-size: 16px;           /* (Tùy chọn) Tăng cỡ chữ nút bấm cho rõ ràng */
-    font-family: Cambria, Georgia, serif; /* Đổi phông chữ nút bấm sang Cambria */
+    font-family: Cambria, Georgia, serif;
     box-shadow: 0 4px 6px -1px rgba(0, 86, 179, 0.2); 
     transition: all 0.2s;
 }

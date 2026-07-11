@@ -23,8 +23,10 @@
         .header-wrapper h2 {
     margin: 0;                /* Xóa bỏ khoảng cách mặc định của thẻ h2 */
     color: #0A192F;           /* Màu xanh dương đậm */
-    font-size: 22px;          /* Cỡ chữ phù hợp để hiển thị trên 1 dòng */
+    font-size: 20px;          /* Cỡ chữ phù hợp để hiển thị trên 1 dòng */
     text-transform: uppercase;/* Tự động viết in hoa */
+    line-height: 1.3;         /* Khoảng cách giữa 2 dòng chữ khít nhau vừa vặn */
+    text-align: left;         /* Căn lề trái cho 2 dòng chữ nằm đều bên phải logo */
 }
         .eagle-icon {
     font-size: 22px;          /* Tăng kích thước icon đại bàng to rõ hơn */
@@ -62,7 +64,7 @@
 }
         .form-group input { 
     flex-grow: 1;              
-    padding: 10px;             /* Tăng nhẹ padding để ô nhập cân đối với chữ to */
+    padding: 9px;             /* Tăng nhẹ padding để ô nhập cân đối với chữ to */
     border: 1px solid #cbd5e1;
     border-radius: 6px; 
     box-sizing: border-box;    
@@ -112,17 +114,17 @@
     <!-- THAY THẾ TOÀN BỘ PHẦN LOGO VÀ H2 CŨ BẰNG ĐOẠN NÀY -->
     <div class="header-wrapper">
         <img class="header-logo" src="logobca.svg.png" alt="Logo">
-        <h2>Tra cứu điểm ĐGNL 2026</h2>
+        <h2>Tra cứu<br>điểm ĐGNL 2026</h2>
     </div>
     
     <div class="section-box">
         <div class="section-title">Nhập thông tin tra cứu</div>
         <div class="form-group">
-            <label>Số báo danh (SBD):</label>
+            <label>Số báo danh:</label>
             <input type="text" id="searchSBD" placeholder="Ví dụ: 08000001">
         </div>
         <div class="form-group">
-            <label>Số Căn cước (CCCD):</label>
+            <label>Căn cước:</label>
             <input type="text" id="searchCCCD" placeholder="Nhập 12 số CCCD">
         </div>
     </div>

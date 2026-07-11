@@ -47,6 +47,23 @@
     50% { transform: scale(1.30); } /* Phóng to lên 25% */
     100% { transform: scale(1); }
 }
+       /* Thuộc tính bắt buộc bổ sung cho container để khóa thanh loading nằm bên trong góc bo */
+.container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Định dạng thanh Loading Bar ngầm */
+#loadingBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;              /* Độ mảnh của thanh tải dữ liệu */
+    width: 0%;                /* Ban đầu ẩn đi (độ rộng bằng 0) */
+    background-color: #0056b3; /* Màu xanh dương đậm đồng bộ với tiêu đề */
+    transition: width 2s cubic-bezier(0.08, 0.82, 0.17, 1); /* Chạy mượt mà, nhanh lúc đầu và chậm lại ở cuối */
+    z-index: 10;
+}
         .container { 
     max-width: 500px; 
     margin: auto; 
@@ -123,7 +140,8 @@
 <body>
 
 <div class="container">
-
+    <!-- CHÈN DÒNG NÀY VÀO NGAY ĐẦU CONTAINER -->
+    <div id="loadingBar"></div>
     <!-- THAY THẾ TOÀN BỘ PHẦN LOGO VÀ H2 CŨ BẰNG ĐOẠN NÀY -->
     <div class="header-wrapper">
         <img class="header-logo" src="logobca.svg.png" alt="Logo">
@@ -210,6 +228,10 @@ async function xuLyTraCuu() {
     btn.innerText = "Đang tra cứu dữ liệu...";
     btn.disabled = true;
 
+     // === 1. KÍCH HOẠT THANH LOADING CHẠY QUÉT DỮ LIỆU ===
+    var loadBar = document.getElementById("loadingBar");
+    loadBar.style.width = "90%"; // Cho thanh chạy nhanh lên mức 90% để chờ dữ liệu mạng
+    // ===================================================
     // ĐƯỜNG DẪN WEB APP GOOGLE APPS SCRIPT CỦA BẠN
     // Hãy thay đoạn dưới đây bằng link URL thực tế bạn lấy ở Bước 3
     var URL_API_GOOGLE = "https://script.google.com/macros/s/AKfycbxz-hqMBXUd94deN_1rL_sjSRF5CxWMny3q58sWrdv9kDdfodN2bLmtHosggnajadMN/exec"; 
@@ -223,12 +245,13 @@ async function xuLyTraCuu() {
         });
         
         var result = await response.json();
-        
-         if (result.success === false) {
+            // === 2. KHI MÁY CHỦ BÁO LỖI (SAI SBD/CCCD): CHO THANH LOADING BIẾN MẤT ===
+        if (result.success === false) {
+            loadBar.style.width = "0%"; // Trả về 0 ngay lập tức
             hienThiLoi(result.error);
             btn.innerText = textGoc_btn;
             btn.disabled = false;
-            
+            // ... (đoạn logic đếm số lần sai giữ nguyên) ...
             // THÊM LOGIC ĐẾM SỐ LẦN SAI VÀ KHÓA NÚT Ở ĐÂY:
             soLanSaiLienTiep++;
             if (soLanSaiLienTiep >= 3) { // Sai từ 3 lần trở lên
@@ -256,12 +279,19 @@ async function xuLyTraCuu() {
         soLanSaiLienTiep = 0; 
         tìmThấy = result.data;
     } catch (error) {
+       // === 3. KHI MẤT MẠNG: CŨNG CHO THANH LOADING BIẾN MẤT ===
+        loadBar.style.width = "0%";
         hienThiLoi("Lỗi kết nối đường truyền mạng hoặc link API sai!");
         btn.innerText = textGoc_btn;
         btn.disabled = false;
         return;
     }
-    
+    // === 4. KHI TRA CỨU THÀNH CÔNG: QUÉT TIẾN TRÌNH CHẠM ĐÍCH 100% RỒI BIẾN MẤT ===
+    loadBar.style.width = "100%";
+    setTimeout(function() {
+        loadBar.style.width = "0%"; // Ẩn thanh đi sau khi đã đạt 100%
+    }, 300);
+    // =========================================================================
     // Khôi phục trạng thái nút bấm
     btn.innerText = textGoc_btn;
     btn.disabled = false;

@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 var ieltsVal = parseFloat(ts.IELTS) || 0;
                 var hskVal = parseInt(ts.HSK) || 0;
 
-                // 1. Quy đổi điểm ngoại ngữ chứng chỉ quốc tế
+                // 1. Quy đổi chứng chỉ quốc tế
                 var qdCC = 0;
                 if (ieltsVal >= 7.5 || hskVal >= 5) { qdCC = 10.0; }
                 else if (ieltsVal >= 7.0) { qdCC = 9.5; }
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 else if (ieltsVal >= 6.0) { qdCC = 8.0; }
                 else if (ieltsVal >= 5.5) { qdCC = 7.5; }
 
-                // 2. Tính toán Phương thức 2 (Nếu thí sinh có chứng chỉ ngoại ngữ)
+                // 2. Tính toán Phương thức 2
                 var scorePT2 = 0; 
                 if (qdCC > 0) {
                     var qdTHPT2 = (qdCC * 3) * 0.4;
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     scorePT2 = qdTHPT2 + qdBCA2 + thuong2;
                 }
 
-                // 3. Tính toán Phương thức 3 (Xét điểm THPT phối hợp ĐGNL)
+                // 3. Tính toán Phương thức 3
                 var diemM3 = m3;
                 var thayDiemM3Text = false;
                 if (qdCC > m3) { 
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 var scorePT3 = qdTHPT3 + qdBCA3 + thuong3;
 
-                // 4. Lọc phương thức tối ưu nhất để hiển thị
+                // 4. Lọc phương thức xét tuyển tối ưu nhất
                 var diemCuoiCung = scorePT3;
                 var phuongThucText = "Tối ưu: PT3 (Điểm THPT gốc cao hơn)";
                 
@@ -162,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     phuongThucText = "Tối ưu: PT2 (Sử dụng chứng chỉ)";
                 }
 
-                // 5. Đổ dữ liệu ra giao diện hiển thị
+                // 5. Đổ dữ liệu thô và kết quả tính toán lên giao diện
                 document.getElementById('resName').innerText = ts.HOTEN;
                 document.getElementById('resSBD').innerText = ts.SBD;
+                document.getElementById('resM1').innerText = m1.toFixed(2);

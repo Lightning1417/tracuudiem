@@ -152,13 +152,6 @@
 </div>
 
 <script>
-var databaseBCA = [
- { "SBD": "08000001", "CCCD": "025086000001", "HOTEN": "ANH QUANG", "MON1": 10, "MON2": 9.5, "MON3": 8, "DIEMBCA": 80, "DIEMCONG": 0.25, "IELTS": 7.0, "HSK": 0 },
- { "SBD": "08000002", "CCCD": "025086000002", "HOTEN": "VŨ LÂM", "MON1": 9, "MON2": 10, "MON3": 9, "DIEMBCA": 79, "DIEMCONG": 0.25, "IELTS": 8.0, "HSK": 0 },
- { "SBD": "08000003", "CCCD": "025086000003", "HOTEN": "LINH HƯƠNG", "MON1": 8, "MON2": 9.5, "MON3": 7, "DIEMBCA": 68, "DIEMCONG": 0.25, "IELTS": 0, "HSK": 5 },
- { "SBD": "08000004", "CCCD": "025086000004", "HOTEN": "BẢO NGỌC", "MON1": 8, "MON2": 8, "MON3": 7, "DIEMBCA": 65, "DIEMCONG": 0.5, "IELTS": 6.5, "HSK": 0 },
- { "SBD": "08000005", "CCCD": "025086000005", "HOTEN": "THANH HUYỀN", "MON1": 7, "MON2": 8, "MON3": 9, "DIEMBCA": 60, "DIEMCONG": 0.75, "IELTS": 7.0, "HSK": 0 }
-];
 
 function hienThiLoi(msg) {
     var errorBox = document.getElementById('errorBox');
@@ -167,8 +160,10 @@ function hienThiLoi(msg) {
         errorBox.style.display = 'block';
     }
 }
+// 1. XÓA BỎ HOÀN TOÀN đoạn "var databaseBCA = [...];" cũ đi.
 
-function xuLyTraCuu() {
+// 2. SỬA LẠI HÀM XULYTRACUU THÀNH DẠNG BẤT ĐỒNG BỘ (ASYNC)
+async function xuLyTraCuu() {
     document.getElementById("errorBox").style.display = "none";
     document.getElementById("ketQuaBox").style.display = "none";
     
@@ -180,20 +175,50 @@ function xuLyTraCuu() {
         return;
     }
     
-    var tìmThấy = null;
-    for (var i = 0; i < databaseBCA.length; i++) {
-        if (databaseBCA[i].SBD === sbdInput && databaseBCA[i].CCCD === cccdInput) {
-            tìmThấy = databaseBCA[i];
-            break;
-        }
-    }
+    // Đổi chữ "TÌM KIẾM" trên nút thành chữ "ĐANG TRA CỨU..." để thí sinh không bấm liên tục
+    var btn = document.querySelector(".btn-search");
+    var textGoc của_btn = btn.innerText;
+    btn.innerText = "Đang tra cứu dữ liệu...";
+    btn.disabled = true;
+
+    // DÁN ĐƯỜNG DẪN URL BẠN COPY Ở BƯỚC 3 VÀO ĐÂY
+    var URL_API_GOOGLE = "https://script.google.com/macros/s/AKfycbzCmJqsq4HVUZmSprl1GNZXhlaifg7AzpV2QEM1gz8M3c0jrIOhUHMX2wJqZ6qRxNtt/exec"; 
     
-    if (tìmThấy === null) {
-        hienThiLoi("Không tìm thấy dữ liệu khớp!");
+    var tìmThấy = null;
+    
+    try {
+        // Gửi thông tin SBD và CCCD lên máy chủ Google để nhờ kiểm tra bảo mật
+        var response = await fetch(URL_API_GOOGLE, {
+            method: "POST",
+            body: JSON.stringify({ sbd: sbdInput, cccd: cccdInput })
+        });
+        
+        var result = await response.json();
+        
+        if (result.success === false) {
+            hienThiLoi(result.error);
+            btn.innerText = textGoc của_btn;
+            btn.disabled = false;
+            return;
+        }
+        
+        // Nếu máy chủ Google báo thành công, lấy dữ liệu thí sinh ra để tính điểm
+        tìmThấy = result.data;
+        
+    } catch (error) {
+        hienThiLoi("Lỗi kết nối đường truyền mạng!");
+        btn.innerText = textGoc của_btn;
+        btn.disabled = false;
         return;
     }
     
+    // Trả lại trạng thái bình thường cho nút bấm
+    btn.innerText = textGoc của_btn;
+    btn.disabled = false;
+
+    // --- GIỮ NGUYÊN TOÀN BỘ ĐOẠN LOGIC TÍNH PT2, PT3 VÀ ĐIỀN DỮ LIỆU LÊN GIAO DIỆN PHÍA DƯỚI CỦA BẠN ---
     var m1 = Number(tìmThấy.MON1);
+    // ... các đoạn code cũ chạy tốt của bạn giữ nguyên từ đây xuống hết file ...
     var m2 = Number(tìmThấy.MON2);
     var m3 = Number(tìmThấy.MON3);
     var bca = Number(tìmThấy.DIEMBCA);

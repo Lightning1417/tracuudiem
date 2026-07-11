@@ -24,7 +24,22 @@
     border: 1px solid #cbd5e1;
     border-radius: 6px; /* Bo nhẹ góc ô nhập */
 }
-        .btn-search { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        .btn-search { 
+    width: 100%; 
+    padding: 12px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    border-radius: 8px; /* Bo góc nút */
+    font-weight: bold;
+    box-shadow: 0 4px 6px -1px rgba(0, 123, 255, 0.2); /* Đổ bóng theo tông màu xanh của nút */
+    transition: all 0.2s;
+}
+/* Hiệu ứng nhấn nút */
+.btn-search:active {
+    transform: scale(0.98);
+}
         .error-text { color: red; display: none; margin-top: 10px; }
         #ketQuaBox { display: none; margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; }
         .result-row { margin-bottom: 8px; }

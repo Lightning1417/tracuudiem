@@ -30,7 +30,6 @@
 <div class="container">
     <h2>Tra Cứu Điểm ĐGNL 2026</h2>
     
-    <!-- KHỐI 1: Vùng nhập dữ liệu độc lập -->
     <div class="section-box">
         <div class="section-title">Nhập Thông Tin Tra Cứu</div>
         <div class="form-group">
@@ -46,7 +45,6 @@
     <button type="button" id="btnSubmitSearch" class="btn-search">Tìm Kiếm Kết Quả</button>
     <div id="errorBox" class="error-box"></div>
     
-    <!-- KHỐI 2: Vùng kết quả độc lập -->
     <div id="ketQuaBox">
         <div class="result-row"><span class="result-label">Họ và tên thí sinh:</span><span class="result-value" id="resName">--</span></div>
         <div class="result-row"><span class="result-label">Số báo danh:</span><span class="result-value" id="resSBD">--</span></div>
@@ -66,7 +64,6 @@
 </div>
 
 <script>
-// Cơ sở dữ liệu mẫu chuẩn định dạng số
 var databaseBCA = [
  { "SBD": "08000001", "CCCD": "025086000001", "HOTEN": "ANH QUANG", "MON1": 10, "MON2": 9.5, "MON3": 8, "DIEMBCA": 80, "DIEMCONG": 0.25, "IELTS": 7.0, "HSK": 0 },
  { "SBD": "08000002", "CCCD": "025086000002", "HOTEN": "VŨ LÂM", "MON1": 9, "MON2": 10, "MON3": 9, "DIEMBCA": 79, "DIEMCONG": 0.25, "IELTS": 8.0, "HSK": 0 },
@@ -75,20 +72,18 @@ var databaseBCA = [
  { "SBD": "08000005", "CCCD": "025086000005", "HOTEN": "THANH HUYỀN", "MON1": 7, "MON2": 8, "MON3": 9, "DIEMBCA": 60, "DIEMCONG": 0.75, "IELTS": 7.0, "HSK": 0 }
 ];
 
-function hiểnThịLỗi(nộiDung) {
+function hienThiLoi(msg) {
     var errorBox = document.getElementById('errorBox');
     if (errorBox) {
-        errorBox.innerHTML = nộiDung;
+        errorBox.innerHTML = msg;
         errorBox.style.display = 'block';
     }
 }
 
-// Gán sự kiện bằng phương thức AddEventListener chuẩn cấu trúc
 document.addEventListener("DOMContentLoaded", function() {
-    var nutBam = document.getElementById('btnSubmitSearch');
-    
-    if (nutBam) {
-        nutBam.addEventListener("click", function() {
+    var nutTraCuu = document.getElementById('btnSubmitSearch');
+    if (nutTraCuu) {
+        nutTraCuu.addEventListener("click", function() {
             var errorBox = document.getElementById('errorBox');
             var ketQuaBox = document.getElementById('ketQuaBox');
             
@@ -99,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var valCCCD = document.getElementById('searchCCCD').value.trim();
 
             if (valSBD === "" || valCCCD === "") {
-                hiểnThịLỗi("Vui lòng nhập đầy đủ cả SBD và số CCCD.");
+                hienThiLoi("Vui lòng nhập đầy đủ SBD và CCCD.");
                 return;
             }
 
@@ -120,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 var ieltsVal = parseFloat(ts.IELTS) || 0;
                 var hskVal = parseInt(ts.HSK) || 0;
 
-                // Quy đổi điểm ngoại ngữ chứng chỉ quốc tế
                 var qdCC = 0;
                 if (ieltsVal >= 7.5 || hskVal >= 5) { qdCC = 10.0; }
                 else if (ieltsVal >= 7.0) { qdCC = 9.5; }
@@ -128,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 else if (ieltsVal >= 6.0) { qdCC = 8.0; }
                 else if (ieltsVal >= 5.5) { qdCC = 7.5; }
 
-                // Tính toán Phương thức 2
                 var scorePT2 = 0; 
                 if (qdCC > 0) {
                     var qdTHPT2 = (qdCC * 3) * 0.4;
@@ -140,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     scorePT2 = qdTHPT2 + qdBCA2 + thuong2;
                 }
 
-                // Tính toán Phương thức 3
                 var diemM3 = m3;
                 if (qdCC > m3) { diemM3 = qdCC; }
                 var qdTHPT3 = (m1 + m2 + diemM3) * 0.4;
@@ -151,18 +143,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 var scorePT3 = qdTHPT3 + qdBCA3 + thuong3;
 
-                // Lọc phương thức hiển thị tối ưu nhất
                 var diemCuoiCung = scorePT3;
                 var phuongThucText = "Tối ưu: PT3 (Điểm THPT gốc cao hơn)";
                 
-                if (qdCC > m3) {
-                    phuongThucText = "Tối ưu: PT3 (Đã thay điểm chứng chỉ tốt hơn môn 3)";
-                }
+                if (qdCC > m3) { phuongThucText = "Tối ưu: PT3 (Đã thay điểm chứng chỉ tốt hơn môn 3)"; }
                 if (scorePT2 > scorePT3) {
                     diemCuoiCung = scorePT2;
                     phuongThucText = "Tối ưu: PT2 (Sử dụng chứng chỉ)";
                 }
 
-                // Đẩy dữ liệu ra ngoài các phần tử HTML giao diện
                 document.getElementById('resName').innerText = ts.HOTEN;
                 document.getElementById('resSBD').innerText = ts.SBD;
+                document.getElementById('resM1').innerText = m1.toFixed(2);
+                document.getElementById('resM2').innerText = m2.toFixed(2);
+                document.getElementById('resM3').innerText = m3.toFixed(2);
+                document.getElementById('resBCA').innerText = bca.toFixed(2);
+                document.getElementById('resCong').innerText = cong.tsconfig || cong.toFixed(2);
+                document.getElementById('resIELTS').innerText = ieltsVal > 0 ? ieltsVal.toFixed(1) : "Không có";

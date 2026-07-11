@@ -21,6 +21,9 @@
         .result-row { display: flex; justify-content: space-between; font-size: 13px; color: #2d3748; padding: 6px 0; border-bottom: 1px dashed #e2e8f0; }
         .result-label { font-weight: 500; color: #4a5568; }
         .result-value { font-weight: 700; color: #103057; }
+        .final-score-box { text-align: center; margin-top: 15px; padding-top: 10px; border-top: 2px solid #103057; }
+        #ketQuaDiem { color: #c53030; font-size: 34px; font-weight: 900; margin: 5px 0 0 0; }
+        #phuongThucToiUu { font-size: 12px; color: #2f855a; font-weight: bold; margin-top: 5px; background: #e6fffa; padding: 6px 12px; border-radius: 8px; display: inline-block; border: 1px solid #b2f5ea; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -52,15 +55,21 @@
         <div class="result-row"><span class="result-label">Điểm Cộng Gốc:</span><span class="result-value" id="resCong">0.00</span></div>
         <div class="result-row"><span class="result-label">Điểm IELTS:</span><span class="result-value" id="resIELTS">0.0</span></div>
         <div class="result-row"><span class="result-label">Cấp HSK:</span><span class="result-value" id="resHSK">0</span></div>
+        <div class="final-score-box">
+            <div style="font-size:13px; font-weight:bold; color:#4a5568; text-transform: uppercase;">Điểm Xét Tuyển Cuối Cùng</div>
+            <div id="phuongThucToiUu"></div>
+            <p id="ketQuaDiem">0.00 điểm</p>
+        </div>
     </div>
 </div>
 
 <script>
-// Cơ sở dữ liệu mẫu dạng số chuẩn
 var databaseBCA = [
  { "SBD": "08000001", "CCCD": "025086000001", "HOTEN": "ANH QUANG", "MON1": 10, "MON2": 9.5, "MON3": 8, "DIEMBCA": 80, "DIEMCONG": 0.25, "IELTS": 7.0, "HSK": 0 },
  { "SBD": "08000002", "CCCD": "025086000002", "HOTEN": "VŨ LÂM", "MON1": 9, "MON2": 10, "MON3": 9, "DIEMBCA": 79, "DIEMCONG": 0.25, "IELTS": 8.0, "HSK": 0 },
- { "SBD": "08000003", "CCCD": "025086000003", "HOTEN": "LINH HƯƠNG", "MON1": 8, "MON2": 9.5, "MON3": 7, "DIEMBCA": 68, "DIEMCONG": 0.25, "IELTS": 0, "HSK": 5 }
+ { "SBD": "08000003", "CCCD": "025086000003", "HOTEN": "LINH HƯƠNG", "MON1": 8, "MON2": 9.5, "MON3": 7, "DIEMBCA": 68, "DIEMCONG": 0.25, "IELTS": 0, "HSK": 5 },
+ { "SBD": "08000004", "CCCD": "025086000004", "HOTEN": "BẢO NGỌC", "MON1": 8, "MON2": 8, "MON3": 7, "DIEMBCA": 65, "DIEMCONG": 0.5, "IELTS": 6.5, "HSK": 0 },
+ { "SBD": "08000005", "CCCD": "025086000005", "HOTEN": "THANH HUYỀN", "MON1": 7, "MON2": 8, "MON3": 9, "DIEMBCA": 60, "DIEMCONG": 0.75, "IELTS": 7.0, "HSK": 0 }
 ];
 
 function hienThiLoi(msg) {
@@ -98,24 +107,61 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             if (ts !== null) {
-                // Đổ trực tiếp dữ liệu thô không qua tính toán công thức xét tuyển
+                var m1 = parseFloat(ts.MON1) || 0;
+                var m2 = parseFloat(ts.MON2) || 0;
+                var m3 = parseFloat(ts.MON3) || 0;
+                var bca = parseFloat(ts.DIEMBCA) || 0;
+                var cong = parseFloat(ts.DIEMCONG) || 0;
+                var ieltsVal = parseFloat(ts.IELTS) || 0;
+                var hskVal = parseInt(ts.HSK) || 0;
+
+                // 1. Quy đổi điểm ngoại ngữ chứng chỉ quốc tế
+                var qdCC = 0;
+                if (ieltsVal >= 7.5 || hskVal >= 5) { qdCC = 10.0; }
+                else if (ieltsVal >= 7.0) { qdCC = 9.5; }
+                else if (ieltsVal >= 6.5 || hskVal === 4) { qdCC = 8.5; }
+                else if (ieltsVal >= 6.0) { qdCC = 8.0; }
+                else if (ieltsVal >= 5.5) { qdCC = 7.5; }
+
+                // 2. Tính toán Phương thức 2 (Nếu thí sinh có chứng chỉ ngoại ngữ)
+                var scorePT2 = 0; 
+                if (qdCC > 0) {
+                    var qdTHPT2 = (qdCC * 3) * 0.4;
+                    var qdBCA2 = bca * 0.6 * 0.3;
+                    var thuong2 = cong;
+                    if ((qdTHPT2 + qdBCA2) >= 22.5) { 
+                        thuong2 = ((30 - (qdTHPT2 + qdBCA2)) / 7.5) * cong; 
+                    }
+                    scorePT2 = qdTHPT2 + qdBCA2 + thuong2;
+                }
+
+                // 3. Tính toán Phương thức 3 (Xét điểm THPT phối hợp ĐGNL)
+                var diemM3 = m3;
+                var thayDiemM3Text = false;
+                if (qdCC > m3) { 
+                    diemM3 = qdCC; 
+                    thayDiemM3Text = true;
+                }
+                var qdTHPT3 = (m1 + m2 + diemM3) * 0.4;
+                var qdBCA3 = bca * 0.6 * 0.3;
+                var thuong3 = cong;
+                if ((qdTHPT3 + qdBCA3) >= 22.5) { 
+                    thuong3 = ((30 - (qdTHPT3 + qdBCA3)) / 7.5) * cong; 
+                }
+                var scorePT3 = qdTHPT3 + qdBCA3 + thuong3;
+
+                // 4. Lọc phương thức tối ưu nhất để hiển thị
+                var diemCuoiCung = scorePT3;
+                var phuongThucText = "Tối ưu: PT3 (Điểm THPT gốc cao hơn)";
+                
+                if (thayDiemM3Text) {
+                    phuongThucText = "Tối ưu: PT3 (Đã thay điểm chứng chỉ tốt hơn môn 3)";
+                }
+                if (scorePT2 > scorePT3) {
+                    diemCuoiCung = scorePT2;
+                    phuongThucText = "Tối ưu: PT2 (Sử dụng chứng chỉ)";
+                }
+
+                // 5. Đổ dữ liệu ra giao diện hiển thị
                 document.getElementById('resName').innerText = ts.HOTEN;
                 document.getElementById('resSBD').innerText = ts.SBD;
-                document.getElementById('resM1').innerText = (parseFloat(ts.MON1) || 0).toFixed(2);
-                document.getElementById('resM2').innerText = (parseFloat(ts.MON2) || 0).toFixed(2);
-                document.getElementById('resM3').innerText = (parseFloat(ts.MON3) || 0).toFixed(2);
-                document.getElementById('resBCA').innerText = (parseFloat(ts.DIEMBCA) || 0).toFixed(2);
-                document.getElementById('resCong').innerText = (parseFloat(ts.DIEMCONG) || 0).toFixed(2);
-                document.getElementById('resIELTS').innerText = ts.IELTS !== "0" && ts.IELTS !== 0 ? ts.IELTS : "Không có";
-                document.getElementById('resHSK').innerText = ts.HSK !== "0" && ts.HSK !== 0 ? "Cấp " + ts.HSK : "Không có";
-                
-                if (ketQuaBox) ketQuaBox.style.display = 'block';
-            } else {
-                hienThiLoi("Không tìm thấy dữ liệu thí sinh. Vui lòng kiểm tra lại SBD và CCCD.");
-            }
-        });
-    }
-});
-</script>
-</body>
-</html>

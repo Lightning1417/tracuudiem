@@ -29,10 +29,23 @@
     text-align: center;         /* Căn lề trái cho 2 dòng chữ nằm đều bên phải logo */
 }
         .eagle-icon {
-    font-size: 22px;          /* Tăng kích thước icon đại bàng to rõ hơn */
-    margin-left: 10px;         /* Tạo một khoảng cách nhỏ với con số điểm phía trước */
-    vertical-align: bottom;   /* Căn chỉnh icon nằm thẳng hàng trục giữa với chữ */
+    font-size: 22px;          
+    margin-left: 5px;         
     display: inline-block;
+    vertical-align: top;       
+    position: relative;
+    top: -4px;                 
+    
+    /* THÊM 2 DÒNG LỆNH CHUYỂN ĐỘNG DƯỚI ĐÂY */
+    animation: pulseEagle 2s infinite ease-in-out; /* Chạy vô hạn, chu kỳ 2 giây */
+    transform-origin: center;
+}
+
+/* Định nghĩa hiệu ứng phóng to thu nhỏ nhẹ nhàng */
+@keyframes pulseEagle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); } /* Phóng to lên 25% */
+    100% { transform: scale(1); }
 }
         .container { 
     max-width: 500px; 
@@ -125,7 +138,7 @@
         </div>
         <div class="form-group">
             <label>Căn cước:</label>
-            <input type="text" id="searchCCCD" placeholder="Nhập 12 số CCCD">
+            <input type="text" id="searchCCCD" placeholder="Nhập 12 số CCCD" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)">
         </div>
     </div>
     
@@ -165,12 +178,19 @@ function hienThiLoi(msg) {
         errorBox.style.display = 'block';
     }
 }
+    // Thêm 2 biến đếm đặt bên ngoài hàm xuLyTraCuu
+var soLanSaiLienTiep = 0;
+var dangBiKhoaSpam = false;
 
-// 3. HÀM XỬ LÝ TRA CỨU CHÍNH (Đã sửa lỗi chính tả biến tiếng Việt)
 async function xuLyTraCuu() {
+    // Đoạn code kiểm tra ô trống và CCCD ở trên...
     document.getElementById("errorBox").style.display = "none";
     document.getElementById("ketQuaBox").style.display = "none";
-    
+    // THÊM ĐOẠN KIỂM TRA TRẠNG THÁI KHÓA Ở ĐẦU HÀM
+    if (dangBiKhoaSpam) {
+        hienThiLoi("Bạn đã nhập sai nhiều lần. Vui lòng thử lại sau giây lát!");
+        return;
+    }
     var sbdInput = document.getElementById("searchSBD").value.trim();
     var cccdInput = document.getElementById("searchCCCD").value.trim();
     
@@ -179,6 +199,11 @@ async function xuLyTraCuu() {
         return;
     }
     
+    // THÊM ĐOẠN KIỂM TRA ĐỘ DÀI CCCD NÀY VÀO:
+    if (cccdInput.length !== 12) {
+        hienThiLoi("Số Căn cước công dân phải có đúng 12 chữ số!");
+        return;
+    }
     // Đổi trạng thái nút bấm
     var btn = document.querySelector(".btn-search");
     var textGoc_btn = btn.innerText;
@@ -199,15 +224,37 @@ async function xuLyTraCuu() {
         
         var result = await response.json();
         
-        if (result.success === false) {
+         if (result.success === false) {
             hienThiLoi(result.error);
             btn.innerText = textGoc_btn;
             btn.disabled = false;
+            
+            // THÊM LOGIC ĐẾM SỐ LẦN SAI VÀ KHÓA NÚT Ở ĐÂY:
+            soLanSaiLienTiep++;
+            if (soLanSaiLienTiep >= 3) { // Sai từ 3 lần trở lên
+                dangBiKhoaSpam = true;
+                btn.disabled = true;
+                var giayDemNguoc = 10; // Khóa trong 10 giây
+                
+                var boDemTime = setInterval(function() {
+                    giayDemNguoc--;
+                    btn.innerText = "Thử lại sau (" + giayDemNguoc + "s)";
+                    if (giayDemNguoc <= 0) {
+                        clearInterval(boDemTime);
+                        dangBiKhoaSpam = false;
+                        soLanSaiLienTiep = 0; // Reset số lần sai
+                        btn.innerText = textGoc_btn;
+                        btn.disabled = false;
+                        document.getElementById("errorBox").style.display = "none";
+                    }
+                }, 1000);
+            }
             return;
         }
         
+        // Nếu tra cứu THÀNH CÔNG, nhớ reset số lần sai về 0
+        soLanSaiLienTiep = 0; 
         tìmThấy = result.data;
-        
     } catch (error) {
         hienThiLoi("Lỗi kết nối đường truyền mạng hoặc link API sai!");
         btn.innerText = textGoc_btn;

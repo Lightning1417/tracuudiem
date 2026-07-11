@@ -49,11 +49,11 @@
         <div class="result-row"><span class="result-label">Số báo danh:</span><span class="result-value" id="resSBD">--</span></div>
         <div class="result-row"><span class="result-label">Môn 1:</span><span class="result-value" id="resM1">0.00</span></div>
         <div class="result-row"><span class="result-label">Môn 2:</span><span class="result-value" id="resM2">0.00</span></div>
-        <div class="result-row"><span class="result-label">Môn 3:</span><span class="result-value" id="resM3">0.00</span></div>
-        <div class="result-row"><span class="result-label">Điểm Thi ĐGNL BCA:</span><span class="result-value" id="resBCA">0.00</span></div>
+        <div class="result-row"><span class="result-label">Môn 3 (Ngoại ngữ):</span><span class="result-value" id="resM3">0.00</span></div>
+        <div class="result-row"><span class="result-label">Điểm ĐGNL BCA:</span><span class="result-value" id="resBCA">0.00</span></div>
         <div class="result-row"><span class="result-label">Điểm Cộng Gốc:</span><span class="result-value" id="resCong">0.00</span></div>
-        <div class="result-row"><span class="result-label">Giá trị IELTS:</span><span class="result-value" id="resIELTS">0.0</span></div>
-        <div class="result-row"><span class="result-label">Giá trị HSK:</span><span class="result-value" id="resHSK">0</span></div>
+        <div class="result-row"><span class="result-label">Điểm IELTS:</span><span class="result-value" id="resIELTS">0.0</span></div>
+        <div class="result-row"><span class="result-label">Cấp độ HSK:</span><span class="result-value" id="resHSK">0</span></div>
         
         <div class="final-score-box">
             <div style="font-size:13px; font-weight:bold; color:#4a5568; text-transform: uppercase;">Điểm Xét Tuyển Cuối Cùng</div>
@@ -146,7 +146,7 @@ function xuLyTraCuu() {
 
     if (scorePT2 > scorePT3) {
         diemCuoi = scorePT2;
-        txtPT = "PT2 (Chung chi quoc te quy doi)";
+        txtPT = "PT2 (Chung chi quoc te)";
     }
 
     document.getElementById("resName").innerText = tìmThấy.HOTEN;

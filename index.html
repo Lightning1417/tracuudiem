@@ -177,7 +177,7 @@ async function xuLyTraCuu() {
     
     // Đổi chữ "TÌM KIẾM" trên nút thành chữ "ĐANG TRA CỨU..." để thí sinh không bấm liên tục
     var btn = document.querySelector(".btn-search");
-    var textGoc của_btn = btn.innerText;
+    var textGoc_btn = btn.innerText;
     btn.innerText = "Đang tra cứu dữ liệu...";
     btn.disabled = true;
 
@@ -207,7 +207,7 @@ async function xuLyTraCuu() {
         
     } catch (error) {
         hienThiLoi("Lỗi kết nối đường truyền mạng!");
-        btn.innerText = textGoc của_btn;
+        btn.innerText = textGoc_btn;
         btn.disabled = false;
         return;
     }

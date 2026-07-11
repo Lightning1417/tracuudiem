@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tra Cứu Điểm ĐGNL 2026</title>
+    <title>Tra Cứu Điểm ĐGNL 26</title>
     <style>
-        /* ĐOẠN CSS LÀM ĐẸP CÔ LẬP - ĐÃ KIỂM TRA CHỐNG ĐÈ KHỐI CHẶN CHUỘT TRÊN SAFARI */
+        /* CSS LÀM ĐẸP AN TOÀN - KHÔNG CHỨA BỘ CHỌN LỖI ĐÈ KHỐI */
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
             background-color: #f4f6f9; 
@@ -148,7 +148,7 @@
             margin-top: 5px; 
             background: #e6fffa; 
             padding: 6px 12px; 
-            border-radius: 8px; 
+            border-radius: 8px; 1
             display: inline-block; 
             border: 1px solid #b2f5ea; 
             line-height: 1.4; 
@@ -158,7 +158,7 @@
 <body>
 
 <div class="container">
-    <h2>Tra Cứu Điểm ĐGNL 2026</h2>
+    <h2>Tra Cứu Điểm ĐGNL 26</h2>
     
     <div class="section-box">
         <div class="section-title">Nhập Thông Tin Tra Cứu</div>
@@ -172,7 +172,7 @@
         </div>
     </div>
     
-    <!-- GIỮ NGUYÊN THUỘC TÍNH ONCLICK THÔ SƠ CHẠY ỔN ĐỊNH CỦA BẠN -->
+    <!-- GIỮ NGUYÊN THUỘC TÍNH ONCLICK THÔ SƠ GỐC -->
     <button onclick="xuLyTraCuu()" class="btn-search">Tìm Kiếm Kết Quả</button>
     
     <div id="errorBox" class="error-text"></div>
@@ -197,7 +197,6 @@
 </div>
 
 <script>
-// TUYỆT ĐỐI GIỮ NGUYÊN TOÀN BỘ KHỐI JAVASCRIPT ĐÃ CHẠY ỔN ĐỊNH 100% CỦA BẠN
 var databaseBCA = [
  { "SBD": "08000001", "CCCD": "025086000001", "HOTEN": "ANH QUANG", "MON1": 10, "MON2": 9.5, "MON3": 8, "DIEMBCA": 80, "DIEMCONG": 0.25, "IELTS": 7.0, "HSK": 0 },
  { "SBD": "08000002", "CCCD": "025086000002", "HOTEN": "VŨ LÂM", "MON1": 9, "MON2": 10, "MON3": 9, "DIEMBCA": 79, "DIEMCONG": 0.25, "IELTS": 8.0, "HSK": 0 },
@@ -205,6 +204,14 @@ var databaseBCA = [
  { "SBD": "08000004", "CCCD": "025086000004", "HOTEN": "BẢO NGỌC", "MON1": 8, "MON2": 8, "MON3": 7, "DIEMBCA": 65, "DIEMCONG": 0.5, "IELTS": 6.5, "HSK": 0 },
  { "SBD": "08000005", "CCCD": "025086000005", "HOTEN": "THANH HUYỀN", "MON1": 7, "MON2": 8, "MON3": 9, "DIEMBCA": 60, "DIEMCONG": 0.75, "IELTS": 7.0, "HSK": 0 }
 ];
+
+function hienThiLoi(msg) {
+    var errorBox = document.getElementById('errorBox');
+    if (errorBox) {
+        errorBox.innerHTML = msg;
+        errorBox.style.display = 'block';
+    }
+}
 
 function xuLyTraCuu() {
     document.getElementById("errorBox").style.display = "none";
@@ -214,8 +221,7 @@ function xuLyTraCuu() {
     var cccdInput = document.getElementById("searchCCCD").value.trim();
     
     if (sbdInput === "" || cccdInput === "") {
-        document.getElementById("errorBox").innerText = "Vui lòng điền đủ thông tin!";
-        document.getElementById("errorBox").style.display = "block";
+        hienThiLoi("Vui lòng điền đủ thông tin!");
         return;
     }
     
@@ -228,8 +234,7 @@ function xuLyTraCuu() {
     }
     
     if (tìmThấy === null) {
-        document.getElementById("errorBox").innerText = "Không tìm thấy dữ liệu khớp!";
-        document.getElementById("errorBox").style.display = "block";
+        hienThiLoi("Không tìm thấy dữ liệu khớp!");
         return;
     }
     
@@ -267,3 +272,7 @@ function xuLyTraCuu() {
     if ((pt3_thpt + pt3_bca) >= 22.5) {
         pt3_thuong = ((30 - (pt3_thpt + pt3_bca)) / 7.5) * cong;
     }
+    var scorePT3 = pt3_thpt + pt3_bca + pt3_thuong;
+    
+    var diemCuoi = scorePT3;
+    var txtPT = "PT3 (Diem THPT goc cao hon)";

@@ -76,8 +76,26 @@
     border: 1px dashed #6c757d; 
     padding: 15px; 
     margin-top: 15px; 
-    text-align: center; 
-    border-radius: 8px; /* Bo góc khung điểm số */
+    border-radius: 8px; 
+    font-family: Cambria, Georgia, serif; 
+    
+    /* CẤU HÌNH THÊM ĐỂ ĐƯA LOGO NẰM BÊN TRÁI CHỮ */
+    display: flex;            /* Kích hoạt hiển thị hàng ngang */
+    align-items: center;      /* Căn giữa logo và chữ theo chiều dọc */
+    text-align: left;         /* Chuyển căn lề chữ từ giữa sang trái */
+    gap: 15px;                /* Tạo khoảng cách giữa logo và khối chữ */
+}
+
+/* Thêm cấu hình kích thước cho riêng logo trong hộp này */
+        .final-score-box img {
+    width: 60px;              /* Thiết lập chiều rộng vừa vặn */
+    height: auto;
+    flex-shrink: 0;           /* Không cho logo bị méo/co lại */
+}
+
+/* Thêm cấu hình bao bọc phần chữ bên phải */
+        .final-score-text {
+    flex-grow: 1;             /* Chiếm trọn phần không gian còn lại */
 }
         #ketQuaDiem { font-size: 20px; font-weight: bold; color: red; margin: 5px 0 0 0; }
         #phuongThucToiUu { font-style: italic; color: green; margin-top: 5px; }
@@ -117,11 +135,16 @@
         <div class="result-row"><span class="result-label">Cấp HSK:</span><span class="result-value" id="resHSK">0</span></div>
         
         <div class="final-score-box">
-            <div style="font-size:13px; font-weight:bold; color:#0A192F; text-transform: uppercase;">Điểm Xét Tuyển Cuối Cùng</div>
-            <div id="phuongThucToiUu"></div>
-            <p id="ketQuaDiem">0.00 điểm</p>
-        </div>
+    <!-- CHÈN THÊM LOGO VÀO BÊN TRÁI -->
+    <img src="https://wikimedia.org" alt="Logo">
+    
+    <!-- BỌC PHẦN CHỮ VÀO KHỐI NÀY -->
+    <div class="final-score-text">
+        <div style="font-size:13px; font-weight:bold; color:#4a5568; text-transform: uppercase;">Điểm Xét Tuyển Cuối Cùng</div>
+        <div id="phuongThucToiUu"></div>
+        <p id="ketQuaDiem" style="margin: 5px 0 0 0;">0.00 điểm</p>
     </div>
+</div>
 </div>
 
 <script>

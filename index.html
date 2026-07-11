@@ -49,20 +49,21 @@
     font-size: 16px;           /* Tăng cỡ chữ bên trong ô nhập liệu */
     font-family: Cambria, Georgia, serif; /* Đảm bảo ô nhập cũng ăn theo phông Cambria */
 }
-        .btn-search { 
+      .btn-search { 
     width: 100%; 
     padding: 12px; 
     background-color: #0A192F; 
     color: white; 
     border: none; 
     cursor: pointer; 
-    border-radius: 8px; /* Bo góc nút */
+    border-radius: 8px; 
     font-weight: bold;
-    box-shadow: 0 4px 6px -1px rgba(0, 123, 255, 0.2); /* Đổ bóng theo tông màu xanh của nút */
+    font-size: 16px;           /* (Tùy chọn) Tăng cỡ chữ nút bấm cho rõ ràng */
+    font-family: Cambria, Georgia, serif; /* Đổi phông chữ nút bấm sang Cambria */
+    box-shadow: 0 4px 6px -1px rgba(0, 86, 179, 0.2); 
     transition: all 0.2s;
 }
-/* Hiệu ứng nhấn nút */
-.btn-search:active {
+        .btn-search:active {
     transform: scale(0.98);
 }
         .error-text { color: red; display: none; margin-top: 10px; }

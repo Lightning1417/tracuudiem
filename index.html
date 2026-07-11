@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tra Cứu Điểm ĐGNL 26</title>
+    <title>Tra Cứu Điểm ĐGNL 2026</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background-color: #f4f6f9; padding: 15px; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background-color: #f4f6f9; padding: 15px; margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
         .container { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(16, 48, 87, 0.08); width: 100%; max-width: 480px; box-sizing: border-box; border-top: 5px solid #103057; }
         h2 { text-align: center; color: #103057; margin-top: 0; margin-bottom: 20px; font-size: 19px; font-weight: 700; text-transform: uppercase; }
         .section-box { background: #fafafa; padding: 15px; border-radius: 10px; border: 1px solid #eef0f4; margin-bottom: 15px; }
@@ -24,11 +24,12 @@
         .final-score-box { text-align: center; margin-top: 15px; padding-top: 10px; border-top: 2px solid #103057; }
         #ketQuaDiem { color: #c53030; font-size: 34px; font-weight: 900; margin: 5px 0 0 0; }
         #phuongThucToiUu { font-size: 12px; color: #2f855a; font-weight: bold; margin-top: 5px; background: #e6fffa; padding: 6px 12px; border-radius: 8px; display: inline-block; border: 1px solid #b2f5ea; line-height: 1.4; }
+        .log-box { width: 100%; max-width: 480px; margin-top: 15px; background: #1a1a1a; color: #00ff00; font-family: monospace; font-size: 11px; padding: 10px; border-radius: 8px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>Tra Cứu Điểm ĐGNL 26</h2>
+    <h2>Tra Cứu Điểm ĐGNL 2026</h2>
     
     <div class="section-box">
         <div class="section-title">Nhập Thông Tin Tra Cứu</div>
@@ -53,8 +54,8 @@
         <div class="result-row"><span class="result-label">Môn 3 (Ngoại ngữ):</span><span class="result-value" id="resM3">0.00</span></div>
         <div class="result-row"><span class="result-label">Điểm Thi ĐGNL BCA:</span><span class="result-value" id="resBCA">0.00</span></div>
         <div class="result-row"><span class="result-label">Điểm Cộng Gốc:</span><span class="result-value" id="resCong">0.00</span></div>
-        <div class="result-row"><span class="result-label">Điểm IELTS:</span><span class="result-value" id="resIELTS">0.0</span></div>
-        <div class="result-row"><span class="result-label">Cấp HSK:</span><span class="result-value" id="resHSK">0</span></div>
+        <div class="result-row"><span class="result-label">Giá trị IELTS:</span><span class="result-value" id="resIELTS">0.0</span></div>
+        <div class="result-row"><span class="result-label">Giá trị HSK:</span><span class="result-value" id="resHSK">0</span></div>
         <div class="final-score-box">
             <div style="font-size:13px; font-weight:bold; color:#4a5568; text-transform: uppercase;">Điểm Xét Tuyển Cuối Cùng</div>
             <div id="phuongThucToiUu"></div>
@@ -62,6 +63,8 @@
         </div>
     </div>
 </div>
+
+<div class="log-box" id="systemLog">Hệ thống phản hồi: Sẵn sàng tra cứu.</div>
 
 <script>
 var databaseBCA = [
@@ -80,10 +83,17 @@ function hienThiLoi(msg) {
     }
 }
 
+function updateLog(txt) {
+    var logBox = document.getElementById('systemLog');
+    if (logBox) { logBox.innerText = "Hệ thống phản hồi: " + txt; }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     var nutTraCuu = document.getElementById('btnSubmitSearch');
     if (nutTraCuu) {
         nutTraCuu.addEventListener("click", function() {
+            updateLog("Đang kết nối nút bấm... (Bước 1 OK)");
+            
             var errorBox = document.getElementById('errorBox');
             var ketQuaBox = document.getElementById('ketQuaBox');
             
@@ -95,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (valSBD === "" || valCCCD === "") {
                 hienThiLoi("Vui lòng nhập đầy đủ SBD và CCCD.");
+                updateLog("Lỗi bỏ trống ô thông tin.");
                 return;
             }
 
@@ -107,6 +118,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             if (ts !== null) {
+                updateLog("Đã xác thực thông tin tài khoản... (Bước 2 OK)");
+                
                 var m1 = parseFloat(ts.MON1) || 0;
                 var m2 = parseFloat(ts.MON2) || 0;
                 var m3 = parseFloat(ts.MON3) || 0;
@@ -115,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 var ieltsVal = parseFloat(ts.IELTS) || 0;
                 var hskVal = parseInt(ts.HSK) || 0;
 
-                // 1. Quy đổi chứng chỉ ngoại ngữ quốc tế
                 var qdCC = 0;
                 if (ieltsVal >= 7.5 || hskVal >= 5) { qdCC = 10.0; }
                 else if (ieltsVal >= 7.0) { qdCC = 9.5; }
@@ -123,7 +135,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 else if (ieltsVal >= 6.0) { qdCC = 8.0; }
                 else if (ieltsVal >= 5.5) { qdCC = 7.5; }
 
-                // 2. Tính toán Phương thức 2
                 var scorePT2 = 0; 
                 if (qdCC > 0) {
                     var qdTHPT2 = (qdCC * 3) * 0.4;
@@ -135,12 +146,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     scorePT2 = qdTHPT2 + qdBCA2 + thuong2;
                 }
 
-                // 3. Tính toán Phương thức 3
                 var diemM3 = m3;
-                var thayDiemM3Text = false; 
+                var thayDiemM3Text = false;
                 if (qdCC > m3) { 
                     diemM3 = qdCC; 
-                    thayDiemM3Text = true; // ĐÃ SỬA: Bỏ hoàn toàn đoạn lỗi cú pháp cũ dính gán kép
+                    thayDiemM3Text = true;
                 }
                 var qdTHPT3 = (m1 + m2 + diemM3) * 0.4;
                 var qdBCA3 = bca * 0.6 * 0.3;
@@ -150,18 +160,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 var scorePT3 = qdTHPT3 + qdBCA3 + thuong3;
 
-                // 4. Lọc phương thức xét tuyển tối ưu
                 var diemCuoiCung = scorePT3;
                 var phuongThucText = "Tối ưu: PT3 (Điểm THPT gốc cao hơn)";
                 
                 if (thayDiemM3Text) {
                     phuongThucText = "Tối ưu: PT3 (Đã thay điểm chứng chỉ tốt hơn môn 3)";
                 }
-                if (scorePT2 > scorePT3) {
-                    diemCuoiCung = scorePT2;
-                    phuongThucText = "Tối ưu: PT2 (Sử dụng chứng chỉ)";
-                }
-
-                // 5. Gán dữ liệu thô và kết quả lên giao diện HTML công khai
-                document.getElementById('resName').innerText = ts.HOTEN;
-                document.getElementById('resSBD').innerText = ts.SBD;

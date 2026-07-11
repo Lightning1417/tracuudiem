@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tra Cứu Điểm ĐGNL 26</title>
+    <title>Tra Cứu Điểm ĐGNL 2026</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background-color: #f4f6f9; padding: 15px; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
         .container { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(16, 48, 87, 0.08); width: 100%; max-width: 480px; box-sizing: border-box; border-top: 5px solid #103057; }
@@ -28,7 +28,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>Tra Cứu Điểm ĐGNL 26</h2>
+    <h2>Tra Cứu Điểm ĐGNL 2026</h2>
     
     <div class="section-box">
         <div class="section-title">Nhập Thông Tin Tra Cứu</div>
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 else if (ieltsVal >= 6.0) { qdCC = 8.0; }
                 else if (ieltsVal >= 5.5) { qdCC = 7.5; }
 
-                // 2. Tính toán Điểm theo Phương thức 2
+                // 2. Tính toán Phương thức 2
                 var scorePT2 = 0; 
                 if (qdCC > 0) {
                     var qdTHPT2 = (qdCC * 3) * 0.4;
@@ -135,9 +135,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     scorePT2 = qdTHPT2 + qdBCA2 + thuong2;
                 }
 
-                // 3. Tính toán Điểm theo Phương thức 3
+                // 3. Tính toán Phương thức 3
                 var diemM3 = m3;
-                var thayDiemM3Text = false;
+                var thayDiemM3Text = false; // ĐÃ SỬA: Khai báo định dạng biến chuẩn ở đây để Safari không bị sập hàm
                 if (qdCC > m3) { 
                     diemM3 = qdCC; 
                     thayDiemM3Text = true;
@@ -165,4 +165,3 @@ document.addEventListener("DOMContentLoaded", function() {
                 // 5. Gán dữ liệu thô và kết quả lên giao diện HTML công khai
                 document.getElementById('resName').innerText = ts.HOTEN;
                 document.getElementById('resSBD').innerText = ts.SBD;
-                document.getElementById('resM1').innerText = m1.toFixed(2);

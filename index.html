@@ -2,199 +2,136 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TRA CỨU ĐIỂM ĐGNL 2026</title>
     <style>
-        /* Toàn bộ giao diện */
-        body { 
-            font-family: Cambria, Georgia, serif; 
-            margin: 20px; 
-            background-color: #f8fafc; /* Thêm màu nền xám nhạt nhẹ giúp khung tra cứu nổi bật hơn */
-        }
-        
-        /* Khung chứa chính */
-        .container { 
-            max-width: 500px; 
-            width: 100%;
-            margin: auto; 
-            border: 1px solid #e2e8f0; 
-            padding: 25px; 
-            border-radius: 12px; 
-            background-color: #ffffff;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03); 
-            box-sizing: border-box;
-        }
-
-        /* Đầu trang: Logo & Tiêu đề */
+        body { font-family: Cambria, Georgia, serif; margin: 20px; }
         .header-wrapper {
-            display: flex;            
-            align-items: center;      
-            justify-content: center;  
-            gap: 16px;                
-            margin-bottom: 15px;      
-            margin-top: 5px; 
+            display: flex;            /* Đưa logo và tiêu đề lên cùng một hàng ngang */
+            align-items: center;      /* Căn giữa logo và tiêu đề theo chiều dọc */
+            justify-content: center;  /* Căn giữa toàn bộ khối này vào chính giữa màn hình */
+            gap: 16px;                /* Khoảng cách giữa logo và tiêu đề chữ */
+            margin-bottom: 10px;      /* Khoảng cách với phần nhập liệu bên dưới */
+            margin-top: 1px; 
         }
+        /* Định dạng riêng cho logo */
         .header-logo {
-            width: 75px;              
+            width: 80px;              /* Kích thước logo vừa vặn khi nằm ngang tiêu đề */
             height: auto;
             flex-shrink: 0; 
         }
+        /* Định dạng riêng cho tiêu đề chính */
         .header-wrapper h2 {
-            margin: 0;                
-            color: #0A192F;           
-            font-size: 19px;          
-            text-transform: uppercase;
-            line-height: 1.3;         
-            text-align: center;         
+            margin: 0;                /* Xóa bỏ khoảng cách mặc định của thẻ h2 */
+            color: #0A192F;           /* Màu xanh dương đậm */
+            font-size: 18px;          /* Cỡ chữ phù hợp để hiển thị trên 1 dòng */
+            text-transform: uppercase;/* Tự động viết in hoa */
+            line-height: 1.2;         /* Khoảng cách giữa 2 dòng chữ khít nhau vừa vặn */
+            text-align: center;       
         }
-
-        /* Khung nhập liệu phụ */
-        .section-box { 
-            margin-bottom: 15px; 
+        .eagle-icon {
+            font-size: 22px;          
+            margin-left: 10px;         
+            display: inline-block;
+            vertical-align: top;       
+            position: relative;
+            top: -12px;                 
+            animation: pulseEagle 2s infinite ease-in-out; /* Chạy vô hạn, chu kỳ 2 giây */
+            transform-origin: center; 
+        }
+        /* Định nghĩa hiệu ứng phóng to thu nhỏ nhẹ nhàng */
+        @keyframes pulseEagle {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.30); } 
+            100% { transform: scale(1); } 
+        }
+        .container { 
+            max-width: 500px; 
+            margin: auto; 
             border: 1px solid #e2e8f0; 
-            padding: 15px; 
-            border-radius: 8px;
+            padding: 25px; 
+            border-radius: 12px; /* Bo góc khung chính */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Đổ bóng mịn hiện đại */ 
         }
+        .section-box { margin-bottom: 8px; border: 1px solid #ddd; padding: 10px; }
         .section-title { 
             font-weight: bold; 
-            margin-bottom: 15px; 
-            text-align: center;         
-            color: #0A192F; 
-            font-size: 15px;
+            margin-bottom: 10px; 
+            text-align: center;         /* Căn giữa tiêu đề của khung nhập */
+            color: #0A192F;             
         }
         .form-group { 
-            margin-bottom: 12px; 
-            display: flex;             
-            align-items: center;       
-            justify-content: space-between; 
-            gap: 10px;
-        }
-        .form-group:last-child {
-            margin-bottom: 0;
+            margin-bottom: 10px; 
+            display: flex;             /* Kích hoạt hiển thị trên cùng một dòng */
+            align-items: center;       /* Căn giữa chữ và ô nhập theo chiều dọc */
+            justify-content: space-between; /* Đẩy chữ sang trái, ô nhập sang phải */ 
         }
         .form-group label { 
             font-weight: normal;
-            white-space: nowrap;       
+            white-space: nowrap;       /* Giữ chữ không bị xuống hàng khi co màn hình */
+            margin-right: 10px;        /* Tạo khoảng cách nhỏ giữa chữ và ô nhập */
             flex-shrink: 0;
             color: #0A192F; 
-            font-size: 15px;
-        }
-
-        /* Khung bọc ô nhập CCCD ẩn hiện con mắt */
-        .password-wrapper {
-            position: relative;
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
         }
         .form-group input { 
-            width: 100%;              
-            padding: 10px;             
+            flex-grow: 1;              
+            padding: 9px;             /* Tăng nhẹ padding để ô nhập cân đối với chữ to */
             border: 1px solid #cbd5e1;
             border-radius: 6px; 
             box-sizing: border-box;    
-            font-size: 16px;           
-            font-family: Cambria, Georgia, serif; 
-            color: #0A192F;
-            touch-action: manipulation;
+            font-size: 16px;           /* Tăng cỡ chữ bên trong ô nhập liệu */
+            font-family: Cambria, Georgia, serif; /* Đảm bảo ô nhập cũng ăn theo phông Cambria */ 
         }
-        .password-wrapper input {
-            padding-right: 35px; /* Chừa khoảng trống bên phải không bị chữ đè lên mắt */
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            user-select: none;
-            opacity: 0.5;
-            transition: opacity 0.2s;
-        }
-        .toggle-password:hover { opacity: 0.9; }
-
-        /* Nút tra cứu */
         .btn-search { 
-            width: 65%;              
-            display: block;            
-            margin: 15px auto 5px auto;         
-            padding: 11px 14px; 
+            width: 80%;              
+            display: block;            /* BẮT BUỘC: Biến nút thành dạng khối để có thể áp dụng căn giữa */
+            margin: 6px auto;         
+            padding: 10px 12px;        /* Thu hẹp khoảng cách trên dưới theo yêu cầu cũ */
             background-color: #0A192F; 
             color: white; 
             border: none; 
             cursor: pointer; 
-            border-radius: 6px; 
+            border-radius: 8px; 
             font-weight: bold;
             font-family: Cambria, Georgia, serif;
-            font-size: 15px;
-            box-shadow: 0 4px 6px -1px rgba(10, 25, 47, 0.15); 
-            transition: all 0.2s ease; 
+            box-shadow: 0 4px 6px -1px rgba(0, 86, 179, 0.2); 
+            transition: all 0.2s; 
         }
-        .btn-search:active { transform: scale(0.97); }
-        .btn-search:disabled { opacity: 0.7; cursor: not-down; }
-
-        /* Vùng hiển thị kết quả */
-        .error-text { color: red; display: none; margin-top: 10px; text-align: center; font-size: 14px; }
-        #ketQuaBox { display: none; margin-top: 20px; border-top: 2px solid #0A192F; padding-top: 15px; }
+        .btn-search:active { transform: scale(0.98); }
+        .error-text { color: red; display: none; margin-top: 10px; }
+        #ketQuaBox { display: none; margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; }
+        .result-row { margin-bottom: 8px; }
+        .result-label { font-weight: normal; display: inline-block; width: 180px; color: #0A192F; }
+        .result-value { font-weight: normal; color: #1e293b; }
+        .text-bold { font-weight: bold !important; }
         
-        .result-row { 
-            margin-bottom: 8px; 
-            display: flex;
-            justify-content: space-between; /* Đẩy tên/nhãn sang trái, số điểm sang phải để thẳng hàng tuyệt đối */
-            font-size: 15px;
-        }
-        .result-label { font-weight: normal; color: #475569; }
-        .result-value { color: #0A192F; text-align: right; }
-        
-        /* Thay thế cấu trúc :has bằng Class trực tiếp để tương thích 100% mọi đời máy */
+        /* Đã sửa: Sử dụng Class trực tiếp thay cho :has để tạo khoảng cách đều trên dưới */
         .row-bca {
-            margin-top: 15px !important;    
-            margin-bottom: 15px !important; 
-            padding: 5px 0;                 
-            border-top: 1px dashed #e2e8f0;    /* Thêm gạch mảnh nhẹ ngăn cách riêng dòng điểm ĐGNL */
-            border-bottom: 1px dashed #e2e8f0;
+            margin-top: 15px !important;    /* Cách đều dòng trên 15px */
+            margin-bottom: 15px !important; /* Cách đều dòng dưới 15px */
+            padding: 3px 0;                 
         }
-        .text-bold { font-weight: bold !important; color: #0A192F !important; }
-
-        /* Icon Đại bàng hoạt họa */
-        .eagle-icon {
-            font-size: 20px;          
-            margin-left: 6px;         
-            display: inline-block;
-            vertical-align: top;       
-            position: relative;
-            top: -10px;                 
-            animation: pulseEagle 2s infinite ease-in-out; 
-            transform-origin: center; 
-        }
-        @keyframes pulseEagle {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.25); } 
-            100% { transform: scale(1); } 
-        }
-
-        /* Hộp điểm tổng kết cuối cùng */
+        
         .final-score-box { 
-            background-color: #f8fafc; 
-            border: 1px dashed #0A192F; 
-            padding: 15px 15px 32px 15px; 
-            margin-top: 18px; 
+            background-color: #f8f9fa; 
+            border: 1px dashed #6c757d; 
+            padding: 15px 15px 25px 15px; 
+            margin-top: 15px; 
             text-align: center;                  
             border-radius: 8px; 
             font-family: Cambria, Georgia, serif; 
             position: relative; 
         }
-        #ketQuaDiem { font-size: 22px; font-weight: bold; color: #dc2626; margin: 8px 0 0 0; }
-        #phuongThucToiUu { font-style: italic; color: #16a34a; margin-top: 5px; font-size: 14px; font-weight: bold; }
-        
-        /* Góc dưới bên phải hiển thị thời gian thực */
         .time-stamp-box {
             position: absolute;
-            bottom: 6px;                
-            right: 12px;                
+            bottom: 5px;                
+            right: 10px;                
             font-size: 11px;            
             font-style: italic;
             color: #64748b;             
         }
+        #ketQuaDiem { font-size: 20px; font-weight: bold; color: red; margin: 5px 0 0 0; }
+        #phuongThucToiUu { font-style: italic; color: green; margin-top: 5px; }
     </style>
 </head>
 <body>

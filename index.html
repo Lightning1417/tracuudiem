@@ -13,7 +13,6 @@
     gap: 16px;                /* Khoảng cách giữa logo và tiêu đề chữ */
     margin-bottom: 10px;      /* Khoảng cách với phần nhập liệu bên dưới */
     margin-top: 1px; }
-
         /* Định dạng riêng cho logo */
         .header-logo {
     width: 80px;              /* Kích thước logo vừa vặn khi nằm ngang tiêu đề */
@@ -35,47 +34,38 @@
     vertical-align: top;       
     position: relative;
     top: -12px;                 
-    
     /* THÊM 2 DÒNG LỆNH CHUYỂN ĐỘNG DƯỚI ĐÂY */
     animation: pulseEagle 2s infinite ease-in-out; /* Chạy vô hạn, chu kỳ 2 giây */
-    transform-origin: center;
-}
-
+    transform-origin: center; }
 /* Định nghĩa hiệu ứng phóng to thu nhỏ nhẹ nhàng */
 @keyframes pulseEagle {
     0% { transform: scale(1); }
     50% { transform: scale(1.30); } /* Phóng to lên 25% */
-    100% { transform: scale(1); }
-}
-       /* Thuộc tính bắt buộc bổ sung cho container để khóa thanh loading nằm bên trong góc bo */
+    100% { transform: scale(1); } }
         .container { 
     max-width: 500px; 
     margin: auto; 
     border: 1px solid #e2e8f0; 
     padding: 25px; 
     border-radius: 12px; /* Bo góc khung chính */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Đổ bóng mịn hiện đại */
-}
-        .section-box { margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; }
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Đổ bóng mịn hiện đại */ }
+        .section-box { margin-bottom: 8px; border: 1px solid #ddd; padding: 10px; }
         .section-title { 
     font-weight: bold; 
     margin-bottom: 10px; 
     text-align: center;         /* Căn giữa tiêu đề của khung nhập */
-    color: #0A192F;             /* Đổi màu chữ sang tông xám đậm hiện đại */
-}
+    color: #0A192F;             /* Đổi màu chữ sang tông xám đậm hiện đại */ }
         .form-group { 
     margin-bottom: 10px; 
     display: flex;             /* Kích hoạt hiển thị trên cùng một dòng */
     align-items: center;       /* Căn giữa chữ và ô nhập theo chiều dọc */
-    justify-content: space-between; /* Đẩy chữ sang trái, ô nhập sang phải */
-}
+    justify-content: space-between; /* Đẩy chữ sang trái, ô nhập sang phải */ }
         .form-group label { 
     font-weight: normal;
     white-space: nowrap;       /* Giữ chữ không bị xuống hàng khi co màn hình */
     margin-right: 10px;        /* Tạo khoảng cách nhỏ giữa chữ và ô nhập */
     flex-shrink: 0;
-    color: #0A192F;
-}
+    color: #0A192F; }
         .form-group input { 
     flex-grow: 1;              
     padding: 9px;             /* Tăng nhẹ padding để ô nhập cân đối với chữ to */
@@ -83,8 +73,7 @@
     border-radius: 6px; 
     box-sizing: border-box;    
     font-size: 16px;           /* Tăng cỡ chữ bên trong ô nhập liệu */
-    font-family: Cambria, Georgia, serif; /* Đảm bảo ô nhập cũng ăn theo phông Cambria */
-}
+    font-family: Cambria, Georgia, serif; /* Đảm bảo ô nhập cũng ăn theo phông Cambria */ }
       .btn-search { 
     width: 80%;              /* Hoặc giữ nguyên độ rộng thu hẹp bạn đã đặt trước đó */
     display: block;            /* BẮT BUỘC: Biến nút thành dạng khối để có thể áp dụng căn giữa */
@@ -98,11 +87,9 @@
     font-weight: bold;
     font-family: Cambria, Georgia, serif;
     box-shadow: 0 4px 6px -1px rgba(0, 86, 179, 0.2); 
-    transition: all 0.2s;
-}
+    transition: all 0.2s; }
         .btn-search:active {
-    transform: scale(0.98);
-}
+    transform: scale(0.98); }
         .error-text { color: red; display: none; margin-top: 10px; }
         #ketQuaBox { display: none; margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; }
         .result-row { margin-bottom: 8px; }
@@ -111,9 +98,8 @@
         /* Thêm định dạng riêng cho hàng dòng kết quả có chứa điểm ĐGNL */
 div.result-row:has(#resBCA) {
     margin-top: 15px !important;    /* Tạo khoảng cách thưa đều với dòng Môn 3 phía trên */
-    margin-bottom: 12px !important; /* Tạo khoảng cách thưa đều với dòng Điểm cộng phía dưới */
-    padding: 3px 0;                 /* Tăng nhẹ không gian đệm dòng */
-}
+    margin-bottom: 10px !important; /* Tạo khoảng cách thưa đều với dòng Điểm cộng phía dưới */
+    padding: 3px 0;                 /* Tăng nhẹ không gian đệm dòng */ }
         .final-score-box { 
     background-color: #f8f9fa; 
     border: 1px dashed #6c757d; 
@@ -123,8 +109,7 @@ div.result-row:has(#resBCA) {
     border-radius: 8px; 
     font-family: Cambria, Georgia, serif; 
             /* BẮT BUỘC THÊM DÒNG NÀY ĐỂ LÀM TÂM ĐỊNH VỊ */
-    position: relative;
-}
+    position: relative; }
         /* 2. Thêm mới class định vị dòng thời gian về góc dưới bên phải */
 .time-stamp-box {
     position: absolute;
@@ -132,21 +117,18 @@ div.result-row:has(#resBCA) {
     right: 10px;                /* Cách mép phải ô kết quả 12px */
     font-size: 11px;            /* Thu nhỏ cỡ chữ một chút cho tinh tế, vừa vặn */
     font-style: italic;
-    color: #64748b;             /* Màu xám mờ hiện đại */
-}
+    color: #64748b;             /* Màu xám mờ hiện đại */ }
         #ketQuaDiem { font-size: 20px; font-weight: bold; color: red; margin: 5px 0 0 0; }
         #phuongThucToiUu { font-style: italic; color: green; margin-top: 5px; }
     </style>
 </head>
 <body>
-
 <div class="container">
     <!-- THAY THẾ TOÀN BỘ PHẦN LOGO VÀ H2 CŨ BẰNG ĐOẠN NÀY -->
     <div class="header-wrapper">
         <img class="header-logo" src="logobca.svg.png" alt="Logo">
         <h2>Tra cứu điểm<br>ĐGNL 2026</h2>
-    </div>
-    
+    </div> 
     <div class="section-box">
         <div class="section-title">Nhập thông tin tra cứu</div>
         <div class="form-group">
@@ -159,12 +141,9 @@ div.result-row:has(#resBCA) {
             <span class="toggle-password" onclick="chuyenDoiAnHienCCCD()">👁️</span>
         </div>
     </div>
-    
     <!-- GIỮ NGUYÊN THUỘC TÍNH ONCLICK THÔ SƠ GỐC -->
     <button onclick="xuLyTraCuu()" class="btn-search">KẾT QUẢ</button>
-    
     <div id="errorBox" class="error-text"></div>
-    
     <div id="ketQuaBox">
         <div class="result-row"><span class="result-label">Họ và tên thí sinh:</span><span class="result-value" id="resName">--</span></div>
         <div class="result-row"><span class="result-label">Số báo danh:</span><span class="result-value" id="resSBD">--</span></div>

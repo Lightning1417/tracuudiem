@@ -194,35 +194,38 @@ function hienThiLoi(msg) {
         errorBox.style.display = 'block';
     }
 }
-    // Thêm 2 biến đếm đặt bên ngoài hàm xuLyTraCuu
+
+// 3. BIẾN ĐẾM CHỐNG SPAM
 var soLanSaiLienTiep = 0;
 var dangBiKhoaSpam = false;
-    function chuyenDoiAnHienCCCD() {
+
+// 4. HÀM ẨN HIỆN SỐ CĂN CƯỚC
+function chuyenDoiAnHienCCCD() {
     var cccdField = document.getElementById("searchCCCD");
     var iconConMat = document.querySelector(".toggle-password");
     
-    // Nếu đang ẩn dấu chấm thì chuyển sang hiện số
     if (cccdField.type === "password") {
         cccdField.type = "text";
-        iconConMat.innerText = "🔒"; // Đổi thành icon khóa khi đang hiện số
+        iconConMat.innerText = "🔒"; 
         iconConMat.style.opacity = "0.9";
     } else {
-        // Ngược lại, nếu đang hiện số thì khóa ẩn lại thành dấu chấm
         cccdField.type = "password";
-        iconConMat.innerText = "👁️"; // Trả lại icon con mắt
+        iconConMat.innerText = "👁️"; 
         iconConMat.style.opacity = "0.6";
     }
 }
 
+// 5. HÀM XỬ LÝ TRA CỨU CHÍNH
 async function xuLyTraCuu() {
-    // Đoạn code kiểm tra ô trống và CCCD ở trên...
     document.getElementById("errorBox").style.display = "none";
     document.getElementById("ketQuaBox").style.display = "none";
-    // THÊM ĐOẠN KIỂM TRA TRẠNG THÁI KHÓA Ở ĐẦU HÀM
+    
+    // Kiểm tra trạng thái khóa Spam
     if (dangBiKhoaSpam) {
         hienThiLoi("Bạn đã nhập sai nhiều lần. Vui lòng thử lại sau giây lát!");
         return;
     }
+    
     var sbdInput = document.getElementById("searchSBD").value.trim();
     var cccdInput = document.getElementById("searchCCCD").value.trim();
     
@@ -231,18 +234,18 @@ async function xuLyTraCuu() {
         return;
     }
     
-    // THÊM ĐOẠN KIỂM TRA ĐỘ DÀI CCCD NÀY VÀO:
     if (cccdInput.length !== 12) {
         hienThiLoi("Số Căn cước công dân phải có đúng 12 chữ số!");
         return;
     }
+    
     // Đổi trạng thái nút bấm
     var btn = document.querySelector(".btn-search");
     var textGoc_btn = btn.innerText;
     btn.innerText = "Đang tra cứu dữ liệu...";
     btn.disabled = true;
-    // ĐƯỜNG DẪN WEB APP GOOGLE APPS SCRIPT CỦA BẠN
-    // Hãy thay đoạn dưới đây bằng link URL thực tế bạn lấy ở Bước 3
+    
+    // Đường dẫn kết nối API Google Sheets bảo mật
     var URL_API_GOOGLE = "https://script.google.com/macros/s/AKfycbxz-hqMBXUd94deN_1rL_sjSRF5CxWMny3q58sWrdv9kDdfodN2bLmtHosggnajadMN/exec"; 
     
     var tìmThấy = null;
@@ -254,18 +257,18 @@ async function xuLyTraCuu() {
         });
         
         var result = await response.json();
-            // === 2. KHI MÁY CHỦ BÁO LỖI (SAI SBD/CCCD): CHO THANH LOADING BIẾN MẤT ===
+        
         if (result.success === false) {
             hienThiLoi(result.error);
             btn.innerText = textGoc_btn;
             btn.disabled = false;
-            // ... (đoạn logic đếm số lần sai giữ nguyên) ...
-            // THÊM LOGIC ĐẾM SỐ LẦN SAI VÀ KHÓA NÚT Ở ĐÂY:
+            
+            // Xử lý đếm số lần nhập sai liên tiếp
             soLanSaiLienTiep++;
-            if (soLanSaiLienTiep >= 3) { // Sai từ 3 lần trở lên
+            if (soLanSaiLienTiep >= 3) {
                 dangBiKhoaSpam = true;
                 btn.disabled = true;
-                var giayDemNguoc = 10; // Khóa trong 10 giây
+                var giayDemNguoc = 10;
                 
                 var boDemTime = setInterval(function() {
                     giayDemNguoc--;
@@ -273,7 +276,7 @@ async function xuLyTraCuu() {
                     if (giayDemNguoc <= 0) {
                         clearInterval(boDemTime);
                         dangBiKhoaSpam = false;
-                        soLanSaiLienTiep = 0; // Reset số lần sai
+                        soLanSaiLienTiep = 0;
                         btn.innerText = textGoc_btn;
                         btn.disabled = false;
                         document.getElementById("errorBox").style.display = "none";
@@ -283,20 +286,21 @@ async function xuLyTraCuu() {
             return;
         }
         
-        // Nếu tra cứu THÀNH CÔNG, nhớ reset số lần sai về 0
         soLanSaiLienTiep = 0; 
         tìmThấy = result.data;
+        
     } catch (error) {
         hienThiLoi("Lỗi kết nối đường truyền mạng hoặc link API sai!");
         btn.innerText = textGoc_btn;
         btn.disabled = false;
         return;
     }
+    
     // Khôi phục trạng thái nút bấm
     btn.innerText = textGoc_btn;
     btn.disabled = false;
 
-    // 4. LOGIC TÍNH ĐIỂM (Đã đóng gói hoàn chỉnh dấu đóng mở ngoặc)
+    // 6. LOGIC TÍNH TOÁN ĐIỂM SỐ
     var m1 = Number(tìmThấy.MON1);
     var m2 = Number(tìmThấy.MON2);
     var m3 = Number(tìmThấy.MON3);
@@ -341,7 +345,7 @@ async function xuLyTraCuu() {
         txtPT = "PT2 (Chứng chỉ quốc tế)";
     }
 
-    // Đổ dữ liệu ra giao diện hiển thị
+    // 7. ĐỔ DỮ LIỆU RA GIAO DIỆN HIỂN THỊ
     document.getElementById("resName").innerText = tìmThấy.HOTEN;
     document.getElementById("resSBD").innerText = tìmThấy.SBD;
     document.getElementById("resM1").innerText = m1.toFixed(2);
@@ -349,7 +353,25 @@ async function xuLyTraCuu() {
     document.getElementById("resM3").innerText = m3.toFixed(2);
     document.getElementById("resBCA").innerText = bca.toFixed(2);
     document.getElementById("resCong").innerText = cong.toFixed(2);
-    document.getElementById("thoiGianTraCuu").innerText = chuoiThoiGian;
+    
+    // TÍNH TOÁN VÀ ĐIỀN THỜI GIAN THỰC (ĐÃ BỔ SUNG ĐẦY ĐỦ)
+    try {
+        var bayGio = new Date();
+        var gio = String(bayGio.getHours()).padStart(2, '0');
+        var phut = String(bayGio.getMinutes()).padStart(2, '0');
+        var ngay = String(bayGio.getDate()).padStart(2, '0');
+        var thang = String(bayGio.getMonth() + 1).padStart(2, '0');
+        var nam = bayGio.getFullYear();
+        
+        var chuoiThoiGian = gio + ":" + phut + " - " + ngay + "/" + thang + "/" + nam;
+        
+        var elementThoiGian = document.getElementById("thoiGianTraCuu");
+        if (elementThoiGian) {
+            elementThoiGian.innerText = chuoiThoiGian;
+        }
+    } catch(e) {
+        console.error("Lỗi thời gian:", e);
+    }
     
     // Xử lý hiển thị giá trị chuỗi trống hoặc số không xác định
     document.getElementById("resIELTS").innerText = isNaN(ieltsVal) || ieltsVal === 0 ? "0.0" : ieltsVal.toFixed(1);
@@ -357,6 +379,8 @@ async function xuLyTraCuu() {
 
     document.getElementById("phuongThucToiUu").innerText = txtPT;
     document.getElementById("ketQuaDiem").innerText = diemCuoi.toFixed(2) + " điểm";
+    
+    // KÍCH HOẠT HIỂN THỊ HỘP KẾT QUẢ
     document.getElementById("ketQuaBox").style.display = "block";
 }
 </script>

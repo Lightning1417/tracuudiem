@@ -111,11 +111,22 @@
         .final-score-box { 
     background-color: #f8f9fa; 
     border: 1px dashed #6c757d; 
-    padding: 15px; 
+    padding: 15px 15px 25px 15px; 
     margin-top: 15px; 
     text-align: center;                  /* Trả lại căn giữa chữ ban đầu */
     border-radius: 8px; 
     font-family: Cambria, Georgia, serif; 
+            /* BẮT BUỘC THÊM DÒNG NÀY ĐỂ LÀM TÂM ĐỊNH VỊ */
+    position: relative;
+}
+        /* 2. Thêm mới class định vị dòng thời gian về góc dưới bên phải */
+.time-stamp-box {
+    position: absolute;
+    bottom: 5px;                /* Cách mép dưới ô kết quả 8px */
+    right: 5px;                /* Cách mép phải ô kết quả 12px */
+    font-size: 10px;            /* Thu nhỏ cỡ chữ một chút cho tinh tế, vừa vặn */
+    font-style: italic;
+    color: #64748b;             /* Màu xám mờ hiện đại */
 }
         #ketQuaDiem { font-size: 20px; font-weight: bold; color: red; margin: 5px 0 0 0; }
         #phuongThucToiUu { font-style: italic; color: green; margin-top: 5px; }
@@ -164,6 +175,10 @@
     <div style="font-size:13px; font-weight:bold; color:#0A192F; text-transform: uppercase;">Điểm Xét Tuyển</div>
     <div id="phuongThucToiUu"></div>
     <p id="ketQuaDiem">0.00 điểm</p>
+           <!-- DÒNG THỜI GIAN ĐƯỢC CHUYỂN VÀO ĐÂY VÀ ĐẶT CLASS RIÊNG -->
+    <div class="time-stamp-box">
+        Thời gian tra cứu: <span id="thoiGianTraCuu">--:-- --/--/----</span>
+    </div>
 </div>
 </div>
 

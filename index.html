@@ -66,53 +66,57 @@
     margin-bottom: 10px; 
     display: flex;             
     align-items: center;       
-    justify-content: flex-start; 
+    justify-content: flex-start; /* Ép các thành phần xuất phát cùng lề trái */
 }
+
          .form-group label { 
     display: inline-block; 
-    width: 25%;            
+    width: 25%;               /* Khóa cứng vùng chữ nhãn bên trái chiếm 25% chiều ngang */
     font-weight: normal;
     white-space: nowrap;       
     margin-right: 0;        
     flex-shrink: 0;
     color: #0A192F; }
-        /* 1. ĐỊNH DẠNG Ô NHẬP LIỆU Ở TRẠNG THÁI BÌNH THƯỜNG */
+
+        /* Khung bọc chung cho cả hai ô nhập để đảm bảo độ rộng bằng nhau tuyệt đối */
+        .password-wrapper {
+    display: flex;
+    width: 65%;               /* Khóa cứng độ rộng của cả hai thanh nhập liệu chiếm đúng 65% */
+    position: relative; 
+    align-items: center;
+    box-sizing: border-box;
+}
+
+        /* Định dạng chung cho cả hai ô input (SBD và CCCD) */
         .form-group input { 
-    width: 70%;               /* Đặt 70% để nhường 5% khoảng trống lề phải cho con mắt hiện ra an toàn */
+    width: 100% !important;   /* Ép ô nhập chiếm trọn 100% diện tích của khung bọc password-wrapper */
     padding: 9px;             
     border: 1px solid #cbd5e1;
     border-radius: 6px; 
     box-sizing: border-box;    
     font-size: 16px;           
     font-family: Cambria, Georgia, serif; 
-    transition: all 0.2s ease; /* Tạo hiệu ứng hiệu ứng chuyển màu viền mượt mà */
+    -webkit-appearance: none; /* Xóa bỏ định dạng thô sơ mặc định của hệ thống Apple */
+    transition: all 0.2s ease;
 }
-        /* 2. HIỆU ỨNG ÁNH SÁNG XANH - SỬA LỖI VIẾT LIỀN KÝ TỰ CHUẨN SAFARI IPHONE */
+
+        /* Hiệu ứng bừng sáng vầng hào quang màu xanh dương đậm khi bấm chọn gõ chữ */
         .form-group input:focus {
     border-color: #0A192F !important;      
     outline: none !important;              
-    box-shadow: 0 0 8px rgba(10, 25, 47, 0.4) !important; 
+    -webkit-appearance: none !important;
+    box-shadow: 0 0 8px rgba(10, 25, 47, 0.4) !important; /* Kích hoạt vầng sáng mờ tỏa rộng 8px */
 }
-        /* 3. KHUNG BỌC CỦA Ô CCCD KHỚP ĐỘ RỘNG VỚI Ô SBD */
-        .password-wrapper {
-    display: flex;
-    width: 70%;               /* Cả hai khung bọc đều rộng 70% chằn chặn */
-    position: relative; 
-    align-items: center;
-    overflow: visible !important; /* MỞ KHÓA GÓC: Cho phép con mắt hiển thị tự do ra ngoài lề */
-}
-        .password-wrapper input {
-    width: 100% !important;   
-    padding-right: 10px !important; /* Trả về padding nhỏ vì con mắt đã nằm ngoài, không lo đè chữ */
-}
-       .toggle-password {
+
+        /* Định vị đưa con mắt đứng độc lập hẳn ra ngoài rìa lề phải */
+        .toggle-password {
     position: absolute;
-    right: -25px;              /* Đẩy con mắt văng hẳn ra ngoài lề phải của ô nhập liệu */
+    right: -25px;             /* Đẩy con mắt văng ra ngoài lề phải 25px, không sợ bị đè lên chữ số gõ */
     cursor: pointer;
     font-size: 14px;
     user-select: none;
     opacity: 0.6;
-    z-index: 99 !important;    /* Đảm bảo nổi bật lên trên */
+    z-index: 10;
     transition: opacity 0.2s; 
 }
         .btn-search { 
@@ -172,7 +176,7 @@
         <div class="section-title">Nhập thông tin tra cứu</div>
         <!-- 1. DÒNG NHẬP SỐ BÁO DANH MỚI -->
     <div class="form-group">
-        <label>Số báo danh (SBD):</label>
+        <label>SBD:</label>
         <div class="password-wrapper"> <!-- Thêm khung bọc này vào dòng SBD -->
         <input type="text" id="searchSBD" placeholder="Ví dụ: 08000001" oninput="this.value = this.value.toUpperCase()">
         <span style="width: 14px; margin-left: 10px; display: inline-block;"></span> <!-- Tạo một khoảng trống tàng hình rộng bằng con mắt để hai dòng cân đối chằn chặn -->
@@ -180,7 +184,7 @@
     </div>
 <!-- 2. DÒNG NHẬP CĂN CƯỚC CÔNG DÂN MỚI -->
     <div class="form-group">
-        <label>Số Căn cước (CCCD):</label>
+        <label>CCCD:</label>
         <div class="password-wrapper">
         <input type="password" id="searchCCCD" placeholder="Nhập 12 số CCCD" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)">
         <span class="toggle-password" onclick="chuyenDoiAnHienCCCD()">👁️</span>

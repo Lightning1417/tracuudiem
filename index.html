@@ -50,8 +50,13 @@
     border-radius: 12px; /* Bo góc khung chính */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Đổ bóng mịn hiện đại */ 
     overflow: visible !important; }
-        .section-box { margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; border-radius: 8px; 
-                     overflow: visible !important; /* BẮT BUỘC: Cho phép con mắt hiển thị tự do ra ngoài lề ô nhập */ }
+        .section-box { 
+    margin-bottom: 8px; 
+    border: 1px dashed #6c757d; 
+    padding: 10px 25px 10px 10px; /* Tăng số thứ hai (lề phải) lên 25px để tạo khoảng trống an toàn cho con mắt */
+    border-radius: 8px;
+    overflow: visible !important; 
+}
         .section-title { 
     font-weight: bold; 
     margin-bottom: 10px; 

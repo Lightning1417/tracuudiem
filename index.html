@@ -67,17 +67,26 @@
     flex-shrink: 0;
     color: #0A192F; }
         .form-group input { 
-    flex-grow: 1;              
-    padding: 9px;             /* Tăng nhẹ padding để ô nhập cân đối với chữ to */
+    width: 70%;               /* Thay flex-grow: 1 bằng width: 70% để cố định chiều dài bằng nhau */
+    padding: 9px;             
     border: 1px solid #cbd5e1;
     border-radius: 6px; 
     box-sizing: border-box;    
-    font-size: 16px;           /* Tăng cỡ chữ bên trong ô nhập liệu */
-    font-family: Cambria, Georgia, serif; /* Đảm bảo ô nhập cũng ăn theo phông Cambria */ }
-      .btn-search { 
+    font-size: 16px;           
+    font-family: Cambria, Georgia, serif; }
+        /* DÁN THÊM KHUNG BỌC NÀY ĐỂ Ô CCCD KHÔNG BỊ PHÌNH TO HƠN Ô SBD */
+        .password-wrapper {
+    display: flex;
+    flex-grow: 1;
+    width: 70%;               /* Ép khung bọc của ô CCCD cũng chỉ rộng bằng ô SBD */
+    position: relative; }
+        .password-wrapper input {
+    width: 100% !important;   /* Cho ô input chiếm trọn khung bọc */
+    padding-right: 35px;      /* Khoảng trống bên phải để chữ không đè lên con mắt */ }
+        .btn-search { 
     width: 80%;              /* Hoặc giữ nguyên độ rộng thu hẹp bạn đã đặt trước đó */
     display: block;            /* BẮT BUỘC: Biến nút thành dạng khối để có thể áp dụng căn giữa */
-    margin: 8px auto;         /* BẮT BUỘC: Khoảng cách trên dưới là 15px, "auto" bên trái/phải sẽ tự động căn giữa nút */
+    margin: 15px auto;         /* BẮT BUỘC: Khoảng cách trên dưới là 15px, "auto" bên trái/phải sẽ tự động căn giữa nút */
     padding: 16px; 
     background-color: #0A192F; 
     color: white; 
@@ -148,7 +157,7 @@
         <div class="result-row"><span class="result-label">Môn 1:</span><span class="result-value" id="resM1">0.00</span></div>
         <div class="result-row"><span class="result-label">Môn 2:</span><span class="result-value" id="resM2">0.00</span></div>
         <div class="result-row"><span class="result-label">Môn 3 (Ngoại ngữ):</span><span class="result-value" id="resM3">0.00</span></div>
-        <div class="result-row"><span class="result-label">Điểm ĐGNL BCA:</span><span class="result-value text-bold" id="resBCA">0.00</span><span class="eagle-icon">  🦅</span>
+        <div class="result-row row-bca"><span class="result-label">Điểm ĐGNL BCA:</span><span class="result-value text-bold" id="resBCA">0.00</span><span class="eagle-icon">  🦅</span>
 </div>
         <div class="result-row"><span class="result-label">Điểm cộng gốc:</span><span class="result-value" id="resCong">0.00</span></div>
         <div class="result-row"><span class="result-label">Điểm IELTS:</span><span class="result-value" id="resIELTS">0.0</span></div>

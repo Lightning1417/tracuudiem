@@ -138,7 +138,8 @@
         </div>
         <div class="form-group">
             <label>Căn cước:</label>
-            <input type="text" id="searchCCCD" placeholder="Nhập 12 số CCCD" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)">
+            <input type="password" id="searchCCCD" placeholder="Nhập 12 số CCCD" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)">
+            <span class="toggle-password" onclick="chuyenDoiAnHienCCCD()">👁️</span>
         </div>
     </div>
     
@@ -181,6 +182,22 @@ function hienThiLoi(msg) {
     // Thêm 2 biến đếm đặt bên ngoài hàm xuLyTraCuu
 var soLanSaiLienTiep = 0;
 var dangBiKhoaSpam = false;
+    function chuyenDoiAnHienCCCD() {
+    var cccdField = document.getElementById("searchCCCD");
+    var iconConMat = document.querySelector(".toggle-password");
+    
+    // Nếu đang ẩn dấu chấm thì chuyển sang hiện số
+    if (cccdField.type === "password") {
+        cccdField.type = "text";
+        iconConMat.innerText = "🔒"; // Đổi thành icon khóa khi đang hiện số
+        iconConMat.style.opacity = "0.9";
+    } else {
+        // Ngược lại, nếu đang hiện số thì khóa ẩn lại thành dấu chấm
+        cccdField.type = "password";
+        iconConMat.innerText = "👁️"; // Trả lại icon con mắt
+        iconConMat.style.opacity = "0.6";
+    }
+}
 
 async function xuLyTraCuu() {
     // Đoạn code kiểm tra ô trống và CCCD ở trên...

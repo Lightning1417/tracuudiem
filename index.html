@@ -115,6 +115,9 @@
     z-index: 10;
     transition: opacity 0.2s; 
 }
+     .sbd-wrapper {
+    width: 70% !important; /* Tăng tỷ lệ phần trăm để ô SBD dài lấn sang bên phải */
+}
         .btn-search { 
     width: 80%;              /* Hoặc giữ nguyên độ rộng thu hẹp bạn đã đặt trước đó */
     display: block;            /* BẮT BUỘC: Biến nút thành dạng khối để có thể áp dụng căn giữa */
@@ -175,7 +178,7 @@
     <!-- 1. CẤU TRÚC MỚI CHO DÒNG SỐ BÁO DANH -->
     <div class="form-group">
         <label>SBD:</label>
-        <div class="password-wrapper">
+        <div class="password-wrapper sbd-wrapper">
             <input type="text" id="searchSBD" placeholder="Ví dụ: 08000001" oninput="this.value = this.value.toUpperCase()">
             <!-- Tạo một khoảng trống tàng hình bên phải để dòng SBD có độ dài bằng chằn chặn dòng CCCD -->
             <span style="width: 14px; margin-left: 10px; display: inline-block;"></span>

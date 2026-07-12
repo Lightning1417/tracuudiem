@@ -49,13 +49,14 @@
     padding: 25px; 
     border-radius: 12px; /* Bo góc khung chính */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Đổ bóng mịn hiện đại */ }
-        .section-box { margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; border-radius: 8px}
+        .section-box { margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; border-radius: 8px; 
+                     overflow: visible !important; /* BẮT BUỘC: Cho phép con mắt hiển thị tự do ra ngoài lề ô nhập */ }
         .section-title { 
     font-weight: bold; 
     margin-bottom: 10px; 
     text-align: center;         /* Căn giữa tiêu đề của khung nhập */
     color: #0A192F;             /* Đổi màu chữ sang tông xám đậm hiện đại */ }
-        .form-group { 
+         .form-group { 
     margin-bottom: 10px; 
     display: flex;             
     align-items: center;       
@@ -64,7 +65,7 @@
 
          .form-group label { 
     display: inline-block; 
-    width: 25%;            /* Giảm từ 28% xuống 25% để kéo toàn bộ hai ô nhập dịch sang bên trái nhiều hơn */
+    width: 25%;            
     font-weight: normal;
     white-space: nowrap;       
     margin-right: 0;        
@@ -73,40 +74,45 @@
 
         /* 1. ĐỊNH DẠNG Ô NHẬP LIỆU Ở TRẠNG THÁI BÌNH THƯỜNG */
         .form-group input { 
-    width: 75%;               /* Tăng lên 75% để ô nhập SBD kéo dài vừa vặn với ô nhập CCCD bên dưới */
+    width: 70%;               /* Đặt 70% để nhường 5% khoảng trống lề phải cho con mắt hiện ra an toàn */
     padding: 9px;             
     border: 1px solid #cbd5e1;
     border-radius: 6px; 
     box-sizing: border-box;    
     font-size: 16px;           
-    font-family: Cambria, Georgia, serif; }
+    font-family: Cambria, Georgia, serif; 
+    transition: all 0.2s ease; /* Tạo hiệu ứng hiệu ứng chuyển màu viền mượt mà */
+}
 
-        /* 2. HIỆU ỨNG NỔI MÀU XANH KHI BẤM CHỌN Ô NHẬP */
+        /* 2. HIỆU ỨNG ÁNH SÁNG XANH - SỬA LỖI VIẾT LIỀN KÝ TỰ CHUẨN SAFARI IPHONE */
         .form-group input:focus {
     border-color: #0A192F !important;      
     outline: none !important;              
-    box-shadow: 0 0 5px rgba(10, 25, 47, 0.2) !important; }
+    box-shadow: 0 0 8px rgba(10, 25, 47, 0.4) !important; 
+}
 
         /* 3. KHUNG BỌC CỦA Ô CCCD KHỚP ĐỘ RỘNG VỚI Ô SBD */
         .password-wrapper {
     display: flex;
-    width: 75%;               /* Khóa cứng độ rộng bằng chằn chặn 75% giống hệt ô SBD */
+    width: 70%;               /* Đồng bộ 70% khớp hoàn toàn với ô SBD phía trên */
     position: relative; 
-    box-sizing: border-box; }
+    align-items: center;
+}
 
-        /* Đẩy icon con mắt nằm hẳn ra lề ngoài phía bên phải của ô gõ số */
         .password-wrapper input {
     width: 100% !important;   
-    padding-right: 10px;      /* Reset padding-right về 10px vì con mắt đã nằm ngoài, không lo bị đè chữ nữa */
+    padding-right: 10px; 
 }
-         .toggle-password {
+        .toggle-password {
     position: absolute;
-    right: -25px;              /* Dùng số âm để đẩy con mắt văng hẳn ra ngoài lề */
+    right: -22px;              /* Giữ số âm -22px để đẩy con mắt đứng độc lập bên phải của ô gõ số */
     cursor: pointer;
     font-size: 14px;
     user-select: none;
     opacity: 0.6;
-    transition: opacity 0.2s; }
+    z-index: 5;                /* Đảm bảo con mắt luôn nằm nổi lên trên lốt nền */
+    transition: opacity 0.2s; 
+}
         .btn-search { 
     width: 80%;              /* Hoặc giữ nguyên độ rộng thu hẹp bạn đã đặt trước đó */
     display: block;            /* BẮT BUỘC: Biến nút thành dạng khối để có thể áp dụng căn giữa */

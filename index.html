@@ -68,7 +68,6 @@
     align-items: center;       
     justify-content: flex-start; /* Ép các thành phần xuất phát cùng lề trái */
 }
-
          .form-group label { 
     display: inline-block; 
     width: 25%;               /* Khóa cứng vùng chữ nhãn bên trái chiếm 25% chiều ngang */
@@ -81,12 +80,11 @@
         /* Khung bọc chung cho cả hai ô nhập để đảm bảo độ rộng bằng nhau tuyệt đối */
         .password-wrapper {
     display: flex;
-    width: 65%;               /* Khóa cứng độ rộng của cả hai thanh nhập liệu chiếm đúng 65% */
+    width: 60%;               /* Khóa cứng độ rộng của cả hai thanh nhập liệu chiếm đúng 65% */
     position: relative; 
     align-items: center;
     box-sizing: border-box;
 }
-
         /* Định dạng chung cho cả hai ô input (SBD và CCCD) */
         .form-group input { 
     width: 100% !important;   /* Ép ô nhập chiếm trọn 100% diện tích của khung bọc password-wrapper */
@@ -99,7 +97,6 @@
     -webkit-appearance: none; /* Xóa bỏ định dạng thô sơ mặc định của hệ thống Apple */
     transition: all 0.2s ease;
 }
-
         /* Hiệu ứng bừng sáng vầng hào quang màu xanh dương đậm khi bấm chọn gõ chữ */
         .form-group input:focus {
     border-color: #0A192F !important;      
@@ -107,11 +104,10 @@
     -webkit-appearance: none !important;
     box-shadow: 0 0 8px rgba(10, 25, 47, 0.4) !important; /* Kích hoạt vầng sáng mờ tỏa rộng 8px */
 }
-
         /* Định vị đưa con mắt đứng độc lập hẳn ra ngoài rìa lề phải */
         .toggle-password {
     position: absolute;
-    right: -25px;             /* Đẩy con mắt văng ra ngoài lề phải 25px, không sợ bị đè lên chữ số gõ */
+    right: -20px;             /* Đẩy con mắt văng ra ngoài lề phải 25px, không sợ bị đè lên chữ số gõ */
     cursor: pointer;
     font-size: 14px;
     user-select: none;

@@ -59,26 +59,21 @@
     margin-bottom: 10px; 
     display: flex;             
     align-items: center;       
-    
-    /* SỬA DÒNG NÀY: Ép cả 2 dòng xuất phát cùng 1 trục từ trái sang phải, không tự giãn khoảng trống bừa bãi */
     justify-content: flex-start; 
 }
 
          .form-group label { 
     display: inline-block; 
-    width: 28%;            /* Đảm bảo nhãn chiếm đúng 28% chiều ngang */
+    width: 25%;            /* Giảm từ 28% xuống 25% để kéo toàn bộ hai ô nhập dịch sang bên trái nhiều hơn */
     font-weight: normal;
     white-space: nowrap;       
-    
-    /* SỬA DÒNG NÀY: Xóa bỏ margin-right cũ để tránh tạo khoảng đệm so le ngầm */
     margin-right: 0;        
-    
     flex-shrink: 0;
     color: #0A192F; }
 
         /* 1. ĐỊNH DẠNG Ô NHẬP LIỆU Ở TRẠNG THÁI BÌNH THƯỜNG */
         .form-group input { 
-    width: 72%;               /* Tăng nhẹ lên 72% để bù vào khoảng trống margin-right vừa xóa, giúp ô nhập kéo dài đẹp mắt */
+    width: 75%;               /* Tăng lên 75% để ô nhập SBD kéo dài vừa vặn với ô nhập CCCD bên dưới */
     padding: 9px;             
     border: 1px solid #cbd5e1;
     border-radius: 6px; 
@@ -86,7 +81,7 @@
     font-size: 16px;           
     font-family: Cambria, Georgia, serif; }
 
-        /* 2. ĐOẠN ĐƯỢC TÁCH RIÊNG: HIỆU ỨNG NỔI MÀU XANH KHI BẤM CHỌN Ô NHẬP */
+        /* 2. HIỆU ỨNG NỔI MÀU XANH KHI BẤM CHỌN Ô NHẬP */
         .form-group input:focus {
     border-color: #0A192F;      
     outline: none;              
@@ -95,14 +90,23 @@
         /* 3. KHUNG BỌC CỦA Ô CCCD KHỚP ĐỘ RỘNG VỚI Ô SBD */
         .password-wrapper {
     display: flex;
-    width: 72%;               /* Đồng bộ khóa cứng độ rộng bằng chằn chặn ô SBD (72%) */
+    width: 75%;               /* Khóa cứng độ rộng bằng chằn chặn 75% giống hệt ô SBD */
     position: relative; 
     box-sizing: border-box; }
 
+        /* Đẩy icon con mắt nằm hẳn ra lề ngoài phía bên phải của ô gõ số */
         .password-wrapper input {
     width: 100% !important;   
-    padding-right: 35px; }
-        
+    padding-right: 10px;      /* Reset padding-right về 10px vì con mắt đã nằm ngoài, không lo bị đè chữ nữa */
+}
+         .toggle-password {
+    position: absolute;
+    right: -25px;              /* Dùng số âm để đẩy con mắt văng hẳn ra ngoài lề */
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+    opacity: 0.6;
+    transition: opacity 0.2s; }
         .btn-search { 
     width: 80%;              /* Hoặc giữ nguyên độ rộng thu hẹp bạn đã đặt trước đó */
     display: block;            /* BẮT BUỘC: Biến nút thành dạng khối để có thể áp dụng căn giữa */

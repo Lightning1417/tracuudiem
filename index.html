@@ -60,29 +60,36 @@
     display: flex;             /* Kích hoạt hiển thị trên cùng một dòng */
     align-items: center;       /* Căn giữa chữ và ô nhập theo chiều dọc */
     justify-content: space-between; /* Đẩy chữ sang trái, ô nhập sang phải */ }
-        .form-group label { 
+         .form-group label { 
     font-weight: normal;
-    white-space: nowrap;       /* Giữ chữ không bị xuống hàng khi co màn hình */
-    margin-right: 10px;        /* Tạo khoảng cách nhỏ giữa chữ và ô nhập */
+    white-space: nowrap;       
+    margin-right: 10px;        
     flex-shrink: 0;
-    color: #0A192F; }
+    color: #0A192F;
+    /* BỔ SUNG THÊM 2 DÒNG DƯỚI ĐÂY ĐỂ ĐẨY HAI Ô NHẬP THẲNG HÀNG */
+    display: inline-block;     /* Cho phép thiết lập chiều rộng cho nhãn chữ */
+    width: 32%;               /* Ép cả 2 nhãn chữ chiếm góc 32% chiều ngang như nhau */ }
         .form-group input { 
-    width: 70%;               /* Thay flex-grow: 1 bằng width: 70% để cố định chiều dài bằng nhau */
+            focus {
+            border-color: #0A192F;      /* Đổi màu đường viền sang màu xanh dương đậm đồng bộ */
+            outline: none;              /* Khóa bỏ đường viền bóng mặc định lỗi hiển thị của trình duyệt */
+            box-shadow: 0 0 5px rgba(10, 25, 47, 0.2); /* Tạo hiệu ứng vầng sáng mờ tỏa ra xung quanh ô nhập */ }
+    width: 65%;               /* Đổi từ 70% xuống 65% để nhường thêm khoảng trống cho nhãn chữ bên trái */
     padding: 9px;             
     border: 1px solid #cbd5e1;
     border-radius: 6px; 
     box-sizing: border-box;    
     font-size: 16px;           
     font-family: Cambria, Georgia, serif; }
-        /* DÁN THÊM KHUNG BỌC NÀY ĐỂ Ô CCCD KHÔNG BỊ PHÌNH TO HƠN Ô SBD */
+        /* Khung bọc của ô CCCD */
         .password-wrapper {
     display: flex;
-    flex-grow: 1;
-    width: 70%;               /* Ép khung bọc của ô CCCD cũng chỉ rộng bằng ô SBD */
+    width: 65%;               /* Ép khung bọc ô CCCD có độ rộng khớp hoàn toàn với ô SBD (65%) */
     position: relative; }
         .password-wrapper input {
-    width: 100% !important;   /* Cho ô input chiếm trọn khung bọc */
-    padding-right: 35px;      /* Khoảng trống bên phải để chữ không đè lên con mắt */ }
+    width: 100% !important;   /* Ô input CCCD chiếm trọn 100% diện tích khung bọc */
+    padding-right: 35px; }
+        
         .btn-search { 
     width: 80%;              /* Hoặc giữ nguyên độ rộng thu hẹp bạn đã đặt trước đó */
     display: block;            /* BẮT BUỘC: Biến nút thành dạng khối để có thể áp dụng căn giữa */
@@ -100,7 +107,7 @@
         .btn-search:active {
     transform: scale(0.98); }
         .error-text { color: red; display: none; margin-top: 10px; }
-        #ketQuaBox { display: none; margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; }
+        #ketQuaBox { display: none; margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; padding-left: 8px;}
         .result-row { margin-bottom: 8px; }
         .result-label { font-weight: normal; display: inline-block; width: 180px; color: #0A192F; }
         .text-bold { font-weight: bold !important; }

@@ -123,8 +123,8 @@
 .time-stamp-box {
     position: absolute;
     bottom: 5px;                /* Cách mép dưới ô kết quả 8px */
-    right: 5px;                /* Cách mép phải ô kết quả 12px */
-    font-size: 10px;            /* Thu nhỏ cỡ chữ một chút cho tinh tế, vừa vặn */
+    right: 10px;                /* Cách mép phải ô kết quả 12px */
+    font-size: 11px;            /* Thu nhỏ cỡ chữ một chút cho tinh tế, vừa vặn */
     font-style: italic;
     color: #64748b;             /* Màu xám mờ hiện đại */
 }
@@ -349,6 +349,7 @@ async function xuLyTraCuu() {
     document.getElementById("resM3").innerText = m3.toFixed(2);
     document.getElementById("resBCA").innerText = bca.toFixed(2);
     document.getElementById("resCong").innerText = cong.toFixed(2);
+    document.getElementById("thoiGianTraCuu").innerText = chuoiThoiGian;
     
     // Xử lý hiển thị giá trị chuỗi trống hoặc số không xác định
     document.getElementById("resIELTS").innerText = isNaN(ieltsVal) || ieltsVal === 0 ? "0.0" : ieltsVal.toFixed(1);

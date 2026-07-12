@@ -57,20 +57,28 @@
     color: #0A192F;             /* Đổi màu chữ sang tông xám đậm hiện đại */ }
         .form-group { 
     margin-bottom: 10px; 
-    display: flex;             /* Kích hoạt hiển thị trên cùng một dòng */
-    align-items: center;       /* Căn giữa chữ và ô nhập theo chiều dọc */
-    justify-content: space-between; /* Đẩy chữ sang trái, ô nhập sang phải */ }
+    display: flex;             
+    align-items: center;       
+    
+    /* SỬA DÒNG NÀY: Ép cả 2 dòng xuất phát cùng 1 trục từ trái sang phải, không tự giãn khoảng trống bừa bãi */
+    justify-content: flex-start; 
+}
+
          .form-group label { 
-    display: inline-block; /* Cho phép thiết lập chiều rộng cho nhãn chữ */
-    width: 28%;            /* Ép cả 2 nhãn chữ chiếm góc 28% chiều ngang như nhau */
+    display: inline-block; 
+    width: 28%;            /* Đảm bảo nhãn chiếm đúng 28% chiều ngang */
     font-weight: normal;
     white-space: nowrap;       
-    margin-right: 10px;        
+    
+    /* SỬA DÒNG NÀY: Xóa bỏ margin-right cũ để tránh tạo khoảng đệm so le ngầm */
+    margin-right: 0;        
+    
     flex-shrink: 0;
     color: #0A192F; }
+
         /* 1. ĐỊNH DẠNG Ô NHẬP LIỆU Ở TRẠNG THÁI BÌNH THƯỜNG */
         .form-group input { 
-    width: 68%;               /* Khóa cứng chiều ngang ô nhập SBD chiếm 68% */
+    width: 72%;               /* Tăng nhẹ lên 72% để bù vào khoảng trống margin-right vừa xóa, giúp ô nhập kéo dài đẹp mắt */
     padding: 9px;             
     border: 1px solid #cbd5e1;
     border-radius: 6px; 
@@ -80,14 +88,14 @@
 
         /* 2. ĐOẠN ĐƯỢC TÁCH RIÊNG: HIỆU ỨNG NỔI MÀU XANH KHI BẤM CHỌN Ô NHẬP */
         .form-group input:focus {
-    border-color: #0A192F;      /* Đổi màu viền sang xanh dương đậm */
+    border-color: #0A192F;      
     outline: none;              
     box-shadow: 0 0 5px rgba(10, 25, 47, 0.2); }
 
         /* 3. KHUNG BỌC CỦA Ô CCCD KHỚP ĐỘ RỘNG VỚI Ô SBD */
         .password-wrapper {
     display: flex;
-    width: 68%;               /* Khóa cứng chiều ngang khung bọc CCCD bằng chằn chặn ô SBD (68%) */
+    width: 72%;               /* Đồng bộ khóa cứng độ rộng bằng chằn chặn ô SBD (72%) */
     position: relative; 
     box-sizing: border-box; }
 

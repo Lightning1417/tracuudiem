@@ -80,7 +80,7 @@
         /* Khung bọc chung cho cả hai ô nhập để đảm bảo độ rộng bằng nhau tuyệt đối */
         .password-wrapper {
     display: flex;
-    width: 70%;               /* Khóa cứng độ rộng của cả hai thanh nhập liệu chiếm đúng 65% */
+    width: 68%;               /* Khóa cứng độ rộng của cả hai thanh nhập liệu chiếm đúng 65% */
     position: relative; 
     align-items: center;
     box-sizing: border-box;
@@ -174,7 +174,7 @@
     
     <!-- 1. CẤU TRÚC MỚI CHO DÒNG SỐ BÁO DANH -->
     <div class="form-group">
-        <label>Số báo danh:</label>
+        <label>SBD:</label>
         <div class="password-wrapper">
             <input type="text" id="searchSBD" placeholder="Ví dụ: 08000001" oninput="this.value = this.value.toUpperCase()">
             <!-- Tạo một khoảng trống tàng hình bên phải để dòng SBD có độ dài bằng chằn chặn dòng CCCD -->
@@ -184,7 +184,7 @@
     
     <!-- 2. CẤU TRÚC MỚI CHO DÒNG SỐ CĂN CƯỚC -->
     <div class="form-group">
-        <label>Căn cước:</label>
+        <label>CCCD:</label>
         <div class="password-wrapper">
             <input type="password" id="searchCCCD" placeholder="Nhập 12 số CCCD" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)">
             <span class="toggle-password" onclick="chuyenDoiAnHienCCCD()">👁️</span>

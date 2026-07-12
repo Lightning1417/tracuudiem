@@ -108,6 +108,12 @@
         .result-row { margin-bottom: 8px; }
         .result-label { font-weight: normal; display: inline-block; width: 180px; color: #0A192F; }
         .text-bold { font-weight: bold !important; }
+        /* Thêm định dạng riêng cho hàng dòng kết quả có chứa điểm ĐGNL */
+div.result-row:has(#resBCA) {
+    margin-top: 15px !important;    /* Tạo khoảng cách thưa đều với dòng Môn 3 phía trên */
+    margin-bottom: 15px !important; /* Tạo khoảng cách thưa đều với dòng Điểm cộng phía dưới */
+    padding: 5px 0;                 /* Tăng nhẹ không gian đệm dòng */
+}
         .final-score-box { 
     background-color: #f8f9fa; 
     border: 1px dashed #6c757d; 

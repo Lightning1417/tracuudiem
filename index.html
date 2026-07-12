@@ -61,16 +61,13 @@
     align-items: center;       /* Căn giữa chữ và ô nhập theo chiều dọc */
     justify-content: space-between; /* Đẩy chữ sang trái, ô nhập sang phải */ }
          .form-group label { 
-    display: inline-block;
-    width: 28%;
+    display: inline-block; /* Cho phép thiết lập chiều rộng cho nhãn chữ */
+    width: 28%;            /* Ép cả 2 nhãn chữ chiếm góc 28% chiều ngang như nhau */
     font-weight: normal;
     white-space: nowrap;       
     margin-right: 10px;        
     flex-shrink: 0;
-    color: #0A192F;
-    /* BỔ SUNG THÊM 2 DÒNG DƯỚI ĐÂY ĐỂ ĐẨY HAI Ô NHẬP THẲNG HÀNG */
-    display: inline-block;     /* Cho phép thiết lập chiều rộng cho nhãn chữ */
-    width: 32%;               /* Ép cả 2 nhãn chữ chiếm góc 32% chiều ngang như nhau */ }
+    color: #0A192F; }
         /* 1. ĐỊNH DẠNG Ô NHẬP LIỆU Ở TRẠNG THÁI BÌNH THƯỜNG */
         .form-group input { 
     width: 68%;               /* Khóa cứng chiều ngang ô nhập SBD chiếm 68% */
